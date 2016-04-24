@@ -1,0 +1,24 @@
+#-------------------------------------------------
+#
+# Project created by QtCreator 2016-04-23T15:12:52
+#
+#-------------------------------------------------
+
+QT       += core gui
+
+greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
+
+TARGET = LifeTree
+TEMPLATE = app
+
+
+SOURCES += main.cpp\
+        mainwindow.cpp \
+    taskmodel.cpp \
+    task.cpp
+
+HEADERS  += mainwindow.h \
+    taskmodel.h \
+    task.h
+
+FORMS    += mainwindow.ui
