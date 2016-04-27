@@ -34,7 +34,7 @@ public:
     Task* parentTask;
     TaskData* taskData;
     QList<Task*> childTasks;
-    QList<Task*> copyTasks;
+    QList<Task*> cloneTasks;
 
 
     Task(){
@@ -60,9 +60,10 @@ public:
         parentTask->childTasks.append(this);
     }
 
+
     ~Task(){
-        for(int i=0;i<copyTasks.count();i++){
-            delete copyTasks.value(i);
+        for(int i=0;i<cloneTasks.count();i++){
+            delete cloneTasks.value(i);
         }
         delete taskData;
     }
@@ -73,11 +74,13 @@ public:
             childTask.parentTask=this;
         }
         else{
-            Task* copyTask= new Task;
-            copyTask->taskData=childTask.taskData;
-            childTasks.append(copyTask);
-            copyTask->parentTask=this;
-            copyTasks.append(copyTask);
+            Task* cloneTask= new Task;
+            cloneTask->taskData=childTask.taskData;
+            childTasks.append(cloneTask);
+            cloneTask->parentTask=this;
+            for(int i=0; i<childTask.childCount(); i++){
+                cloneTask->appendChild(*childTask.child(i));
+            }
         }
     }
 
@@ -111,9 +114,9 @@ public:
             case 0:
                 return QVariant(taskData->name);
             case 1:
-                return QVariant(QString::number(taskData->time)+"("+QString::number(getTotalTime())+")");
+                return QVariant(QString::number(taskData->time)+" ("+QString::number(getTotalTime())+")");
             case 2:
-                return QVariant(QString::number(taskData->cost)+"("+QString::number(getTotalCost())+")");
+                return QVariant(QString::number(taskData->cost)+" ("+QString::number(getTotalCost())+")");
         }
 
         //return dataTask.value(column);
