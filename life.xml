@@ -1,0 +1,7 @@
+<task name="life" id="life">
+	Текст
+	<task name="Dance" 		id="dancing"	parent="life" 		time="10" cost="12">
+		<task name="hustle" id="hustle" 	parent="dancing" 	time="10" cost="12"/>
+		<task name="zouk"   id="zouk"   	parent="dancing" 	time="100" cost="12"/>
+	</task>
+</task>

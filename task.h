@@ -36,13 +36,16 @@ public:
     QList<Task*> childTasks;
     QList<Task*> copyTasks;
 
+    Qt::CheckState      checkSt;
+    Qt::CheckState      checkState() { return checkSt; }
 
     Task(){
+        checkSt=Qt::Checked;
         taskData=0;
         parentTask=0;
     }
 
-    Task(QString Name, int Time=0, int Cost=0 ){
+    Task(QString Name, int Time=0, int Cost=0 ):Task(){
         taskData=new TaskData;
         taskData->cost=Cost;
         taskData->time=Time;
@@ -51,7 +54,7 @@ public:
     }
 
 
-    Task(QString Name, Task& parent, int Time=0, int Cost=0){
+    Task(QString Name, Task& parent, int Time=0, int Cost=0):Task(){
         taskData=new TaskData;
         taskData->cost=Cost;
         taskData->time=Time;
@@ -117,6 +120,26 @@ public:
         }
 
         //return dataTask.value(column);
+    }
+    void setData(int column, QVariant value)
+    {
+
+        switch (column){
+            case 0:
+                taskData->name=value.toString();
+                break;
+            case 1:
+                taskData->time=value.toInt();
+                break;
+            case 2:
+                taskData->cost=value.toInt();
+                break;
+        }
+
+        //return dataTask.value(column);
+    }
+    void setCheckState(Qt::CheckState& st){
+        checkSt=st;
     }
 
     Task* parent()

@@ -1,16 +1,67 @@
 #include "mainwindow.h"
 #include <QApplication>
 #include <QTreeView>
+#include <qtXml/QDomDocument>
+#include <qtXml/QDomNode>
+#include <QFile>
+#include <QtDebug>
+#include <QDir>
 #include "taskmodel.h"
+
+void transverseNode(const QDomNode& Node, Task& parent){
+    QDomNode domNode= Node.firstChild();
+    while(!domNode.isNull()){
+        Task* childTask;
+        if (domNode.isElement()){
+            QDomElement domElement=domNode.toElement();
+            if (!domElement.isNull()){
+                if (domElement.tagName()=="task") {
+                    QString name=domElement.attribute("name","");
+                    int time=domElement.attribute("time","").toInt();
+                    int cost=domElement.attribute("cost","").toInt();
+                    qDebug() << domElement.attribute("name","");
+                    childTask=new Task(name,parent,time,cost);
+                }
+                else {
+                    qDebug() << domElement.tagName() << "\tText" << domElement.text();
+                }
+            }
+        }
+        transverseNode(domNode, *childTask);
+        domNode= domNode.nextSibling();
+    }
+
+}
 
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
     //MainWindow w;
-
-
+    //a.resize(10,10);
     Task root("root");
-    Task life("life",root);
+    //Task life("life",root);
+
+    QDomDocument domDoc;
+    //QFile file("d:/life.xml");
+    //qDebug() << QDir::currentPath() ;
+    //QCoreApplication::applicationDirPath();
+    //qDebug() << QDir::currentPath() ;
+    QFile file("../LifeTree/life.xml");
+    if (file.open(QIODevice::ReadOnly | QIODevice::Text)){
+        if (domDoc.setContent(&file)){
+            QDomElement docElement = domDoc.documentElement();
+            QString name=docElement.attribute("name","");
+            int time=0; //docElement.attribute("time","").toInt();
+            int cost=0; //docElement.attribute("cost","").toInt();
+            qDebug() << docElement.attribute("name","");
+            Task* lifeTask=new Task(name,root,time,cost);
+
+            transverseNode(docElement,*lifeTask);
+        }
+        file.close();
+
+    }
+    /*
         Task sport("sport",life,10,0);
             Task swim("swim",sport,10,0);
             Task pres("pres",sport,10,0);
@@ -25,11 +76,14 @@ int main(int argc, char *argv[])
                 zouk.appendChild(shoes);
                 hustle.appendChild(shoes);
         pres.appendChild(dancing);
+    */
 
     TaskModel model(&root);
     QTreeView treeView;
+    //treeView.setColumnWidth(0,500);
     treeView.setModel(&model);
 
     treeView.show();
     return a.exec();
 }
+
