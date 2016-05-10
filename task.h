@@ -26,6 +26,7 @@ public:
     bool visited;
     QString name;
     QString description;
+    QString id;
     int duplucates;
 };
 
