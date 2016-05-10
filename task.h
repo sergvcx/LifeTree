@@ -31,56 +31,65 @@ public:
 
 class Task {
 public:
+    int level;
+    bool linked;
     Task* parentTask;
-    TaskData* taskData;
+    TaskData* pTaskData;
     QList<Task*> childTasks;
-    QList<Task*> copyTasks;
 
     Qt::CheckState      checkSt;
     Qt::CheckState      checkState() { return checkSt; }
 
     Task(){
+        linked=false;
+        level=0;
         checkSt=Qt::Checked;
-        taskData=0;
+        pTaskData=0;
         parentTask=0;
     }
 
     Task(QString Name, int Time=0, int Cost=0 ):Task(){
-        taskData=new TaskData;
-        taskData->cost=Cost;
-        taskData->time=Time;
-        taskData->name=Name;
+        pTaskData=new TaskData;
+        pTaskData->cost=Cost;
+        pTaskData->time=Time;
+        pTaskData->name=Name;
         parentTask=0;
     }
 
 
     Task(QString Name, Task& parent, int Time=0, int Cost=0):Task(){
-        taskData=new TaskData;
-        taskData->cost=Cost;
-        taskData->time=Time;
-        taskData->name=Name;
+        pTaskData=new TaskData;
+        pTaskData->cost=Cost;
+        pTaskData->time=Time;
+        pTaskData->name=Name;
         parentTask=&parent;
         parentTask->childTasks.append(this);
     }
 
     ~Task(){
-        for(int i=0;i<copyTasks.count();i++){
-            delete copyTasks.value(i);
+        for(int i=0;i<childTasks.count();i++){
+            if (childTasks.value(i)->linked==false)
+                delete childTasks.value(i);
         }
-        delete taskData;
+        delete pTaskData;
     }
 
-    void appendChild(Task& childTask){
-        if (childTask.parentTask==0){
-            childTasks.append(&childTask);
-            childTask.parentTask=this;
+    void appendChild(Task* childTask){
+        if (childTask->parentTask==0){
+            childTasks.append(childTask);
+            childTask->parentTask=this;
+            childTask->level=level+1;
         }
         else{
-            Task* copyTask= new Task;
-            copyTask->taskData=childTask.taskData;
-            childTasks.append(copyTask);
-            copyTask->parentTask=this;
-            copyTasks.append(copyTask);
+            Task* linkedTask= new Task; // create copy
+            linkedTask->pTaskData=childTask->pTaskData;
+            linkedTask->linked=true;
+            linkedTask->parentTask=this;
+            childTasks.append(linkedTask);
+            for(int i=0; i<childTask->childCount(); i++){
+                linkedTask->appendChild(childTask->child(i));
+            }
+
         }
     }
 
@@ -112,11 +121,11 @@ public:
 
         switch (column){
             case 0:
-                return QVariant(taskData->name);
+                return QVariant(pTaskData->name);
             case 1:
-                return QVariant(QString::number(taskData->time)+"("+QString::number(getTotalTime())+")");
+                return QVariant(QString::number(pTaskData->time)+"("+QString::number(getTotalTime())+")");
             case 2:
-                return QVariant(QString::number(taskData->cost)+"("+QString::number(getTotalCost())+")");
+                return QVariant(QString::number(pTaskData->cost)+"("+QString::number(getTotalCost())+")");
         }
 
         //return dataTask.value(column);
@@ -126,13 +135,13 @@ public:
 
         switch (column){
             case 0:
-                taskData->name=value.toString();
+                pTaskData->name=value.toString();
                 break;
             case 1:
-                taskData->time=value.toInt();
+                pTaskData->time=value.toInt();
                 break;
             case 2:
-                taskData->cost=value.toInt();
+                pTaskData->cost=value.toInt();
                 break;
         }
 
@@ -155,13 +164,13 @@ public:
     }
 
     void getTotalTime_(int& totalTime){
-        if (taskData->visited)
+        if (pTaskData->visited)
             return;
-        taskData->visited=true;
+        pTaskData->visited=true;
         for(int i=0; i<childTasks.count(); i++){
             childTasks.value(i)->getTotalTime_(totalTime);
         }
-        totalTime+=taskData->time;
+        totalTime+=pTaskData->time;
     }
     int getTotalCost()
     {
@@ -172,20 +181,20 @@ public:
     }
 
     void getTotalCost_(int& totalCost){
-        if (taskData->visited)
+        if (pTaskData->visited)
             return;
-        taskData->visited=true;
+        pTaskData->visited=true;
         for(int i=0; i<childTasks.count(); i++){
             childTasks.value(i)->getTotalCost_(totalCost);
         }
-        totalCost+=taskData->cost;
+        totalCost+=pTaskData->cost;
     }
 
     void resetVisits(){
         for(int i=0; i<childTasks.count(); i++){
             childTasks.value(i)->resetVisits();
         }
-        taskData->visited=false;
+        pTaskData->visited=false;
     }
 
 

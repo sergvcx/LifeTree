@@ -6,8 +6,10 @@
 #include <QFile>
 #include <QtDebug>
 #include <QDir>
+#include <QMap>
 #include "taskmodel.h"
 
+//QMap<QString,>
 void transverseNode(const QDomNode& Node, Task& parent){
     QDomNode domNode= Node.firstChild();
     while(!domNode.isNull()){
@@ -17,8 +19,15 @@ void transverseNode(const QDomNode& Node, Task& parent){
             if (!domElement.isNull()){
                 if (domElement.tagName()=="task") {
                     QString name=domElement.attribute("name","");
-                    int time=domElement.attribute("time","").toInt();
-                    int cost=domElement.attribute("cost","").toInt();
+                    int time=0;
+                    int cost=0;
+                    if (domElement.hasAttribute("time")){
+                        time=domElement.attribute("time","").toInt();
+                    }
+                    if (domElement.hasAttribute("cost")){
+                        cost=domElement.attribute("cost","").toInt();
+                    }
+
                     qDebug() << domElement.attribute("name","");
                     childTask=new Task(name,parent,time,cost);
                 }
@@ -79,6 +88,11 @@ int main(int argc, char *argv[])
     */
 
     TaskModel model(&root);
+    Task* dance=root.child(0)->child(0);
+    Task* sport=root.child(0)->child(1);
+    Task* meet =root.child(0)->child(2);
+    dance->appendChild(sport);
+    meet->appendChild(dance);
     QTreeView treeView;
     //treeView.setColumnWidth(0,500);
     treeView.setModel(&model);
