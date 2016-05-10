@@ -72,34 +72,49 @@ tag.appendChild(t);
 
 
 int appendTaskNode(QDomDocument& doc,  QDomElement& parentElement, Task* pTask){
-    QDomElement childElement = doc.createElement("task");
+    QDomElement childElement;
+    if (pTask->linked){
+        childElement = doc.createElement("link");
 
-    QDomAttr attrName = doc.createAttribute("name");
-    attrName.setValue(pTask->pTaskData->name);
-    childElement.setAttributeNode(attrName);
+        QDomAttr attrID = doc.createAttribute("id");
+        attrID.setValue(pTask->pTaskData->id);
+        childElement.setAttributeNode(attrID);
 
-    QDomAttr attrTime = doc.createAttribute("time");
-    attrTime.setValue(QString::number(pTask->pTaskData->time));
-    childElement.setAttributeNode(attrTime);
+        parentElement.appendChild(childElement);
 
-    QDomAttr attrCost = doc.createAttribute("cost");
-    attrCost.setValue(QString::number(pTask->pTaskData->cost));
-    childElement.setAttributeNode(attrCost);
-
-    QDomAttr attrID = doc.createAttribute("id");
-    attrID.setValue(pTask->pTaskData->id);
-    childElement.setAttributeNode(attrID);
-
-    //QDomAttr attrParentID = doc.createAttribute("parent");
-    //attrParentID.setValue(pTask->parentTask->pTaskData->id);
-    //childElement.setAttributeNode(attrParentID);
-
-    parentElement.appendChild(childElement);
-
-    for(int i=0; i<pTask->childCount();i++){
-        Task* pChildTask=pTask->child(i);
-        appendTaskNode(doc,childElement,pChildTask);
+        for(int i=0; i<pTask->childCount();i++){
+            Task* pChildTask=pTask->child(i);
+            if (!pChildTask->linked)
+                appendTaskNode(doc,childElement,pChildTask);
+        }
     }
+    else {
+        childElement = doc.createElement("task");
+
+        QDomAttr attrName = doc.createAttribute("name");
+        attrName.setValue(pTask->pTaskData->name);
+        childElement.setAttributeNode(attrName);
+
+        QDomAttr attrTime = doc.createAttribute("time");
+        attrTime.setValue(QString::number(pTask->pTaskData->time));
+        childElement.setAttributeNode(attrTime);
+
+        QDomAttr attrCost = doc.createAttribute("cost");
+        attrCost.setValue(QString::number(pTask->pTaskData->cost));
+        childElement.setAttributeNode(attrCost);
+
+        QDomAttr attrID = doc.createAttribute("id");
+        attrID.setValue(pTask->pTaskData->id);
+        childElement.setAttributeNode(attrID);
+
+        parentElement.appendChild(childElement);
+
+        for(int i=0; i<pTask->childCount();i++){
+            Task* pChildTask=pTask->child(i);
+            appendTaskNode(doc,childElement,pChildTask);
+        }
+    }
+
 }
 int life2xml(Task* pRootTask,char* fileName){
     //QFile file(fileName);
@@ -159,9 +174,9 @@ int main(int argc, char *argv[])
     }
 
 
-    life2xml(root.child(0),"../LifeTree/lifeout.xml");
 
-    QDomDocument domDoc2;
+
+
 
 
     /*
@@ -187,6 +202,9 @@ int main(int argc, char *argv[])
     Task* meet =root.child(0)->child(2);
     dance->appendChild(sport);
     meet->appendChild(dance);
+
+    life2xml(root.child(0),"../LifeTree/lifeout.xml");
+
     QTreeView treeView;
     //treeView.setColumnWidth(0,500);
     treeView.setModel(&model);
