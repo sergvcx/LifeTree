@@ -3,6 +3,7 @@
 
 #include <QAbstractItemModel>
 #include "task.h"
+#include "QKeyEvent"
 
 class TaskModel: public QAbstractItemModel
 {
@@ -20,6 +21,17 @@ public:
     QModelIndex parent(const QModelIndex &index) const ;
     int columnCount(const QModelIndex &parent = QModelIndex()) const ;
     bool setData(const QModelIndex &index, const QVariant &value, int role);
+
+
+
+public slots:
+    void onTreeClicked(const QModelIndex &index)
+    {
+        if (index.isValid()) {
+            QString cellText = index.data().toString();
+        }
+    }
+
 
 
 private:

@@ -9,11 +9,12 @@
 #include <QMap>
 #include "taskmodel.h"
 
-QMap<QString,Task* > mapTask;
-void transverseNode(const QDomNode& Node, Task& parent){
+QMap<QString,TaskData* > mapTaskData;
+// чтени XML - рекурсивный разбор XML узла
+void transverseNode(const QDomNode& Node, Task* parent){
     QDomNode domNode= Node.firstChild();
     while(!domNode.isNull()){
-        Task* pChildTask;
+        Task* pChildTask=0;
         if (domNode.isElement()){
             QDomElement domElement=domNode.toElement();
             if (!domElement.isNull()){
@@ -31,23 +32,45 @@ void transverseNode(const QDomNode& Node, Task& parent){
                     if (domElement.hasAttribute("cost")){
                         cost=domElement.attribute("cost","").toInt();
                     }
-                    while (mapTask.contains(id)){
+                    while (mapTaskData.contains(id)){
                         id=id+"0";
                     }
 
 
-                    qDebug() << domElement.attribute("name","");
-                    pChildTask=new Task(name,parent,time,cost);
-                    pChildTask->pTaskData->id=id;
+                    qDebug() << domElement.attribute("name","");    // открывающийся тэг
+                    //pChildTask=new Task(name,parent,time,cost);
+                    TaskData childData;
+                    childData.name=name;
+                    childData.time=time;
+                    childData.cost=cost;
+                    childData.id  =id;
+                    TaskData* pChildTaskData=parent->appendChildTask(childData);
 
-                    mapTask[id]=pChildTask;
+                    pChildTask = pChildTaskData->listTask.last();
+                    mapTaskData[id]=pChildTaskData;
+                }
+                else {
+                    qDebug() << domElement.tagName() << "\tText" << domElement.text(); // закрывающийся тэг
+                }
+                if (domElement.tagName()=="link") {
+                    QString with =domElement.attribute("with","");
+                    //mapTaskData.contains(id)){
+                    TaskData* pChildTaskData= mapTaskData[with];
+                    parent->appendLinkedChildTask(pChildTaskData);
+
+
+                    pChildTask = pChildTaskData->listTask.last();
+                    qDebug() << domElement.attribute("with","");
+
                 }
                 else {
                     qDebug() << domElement.tagName() << "\tText" << domElement.text();
                 }
             }
         }
-        transverseNode(domNode, *pChildTask);
+        //pChildTask=0;
+        //parent->childTasks.last());
+        transverseNode(domNode, pChildTask);
         domNode= domNode.nextSibling();
     }
 }
@@ -141,6 +164,38 @@ int life2xml(Task* pRootTask,char* fileName){
 }
 
 
+class MyTreeView: public QTreeView {
+public slots:
+    void keyPressEvent(QKeyEvent* event)
+    {
+       QModelIndex currentIndex=this->currentIndex();
+       QModelIndex parentIndex=currentIndex.parent();
+       if (event->key()==Qt::Key_Insert && parentIndex.isValid()){
+            Task *parentTask = static_cast<Task*>(parentIndex.internalPointer());
+            //int end=parentTask->childCount()-1;
+            TaskData childData ("New",111,222);
+
+            //rowsAboutToBeInserted(parentIndex,0,1);
+            parentTask->appendChildTask(childData);
+            setExpanded(parentIndex,false);
+            setExpanded(parentIndex,true);
+            setCurrentIndex(parentIndex.child(parentTask->childCount()-1,0));
+           //emit layoutAboutToBeChanged();
+           //dataChanged(QModelIndex(), QModelIndex());
+           //emit layoutAboutToBeChanged();
+           //emit layoutChanged();
+           //if (role == Qt::CheckStateRole ){
+           //     return task->checkState();
+           // }
+           //return task->data(index.column());
+
+           //this->collapse(currentIndex);//int g=1;
+       }
+
+       else QTreeView::keyPressEvent(event);
+       resizeColumnToContents(0);
+    }
+};
 
 
 
@@ -151,7 +206,9 @@ int main(int argc, char *argv[])
     //a.resize(10,10);
 
     Task root("root");
-    //Task life("life",root);
+    Task life("life");
+    root.childTasks.append(&life);
+    life.parentTask=&root;
 
     QDomDocument domDoc;
     //QFile file("d:/life.xml");
@@ -161,14 +218,14 @@ int main(int argc, char *argv[])
     QFile file("../LifeTree/life.xml");
     if (file.open(QIODevice::ReadOnly | QIODevice::Text)){
         if (domDoc.setContent(&file)){
-            QDomElement docElement = domDoc.documentElement();
-            QString name=docElement.attribute("name","");
+            QDomElement rootElement = domDoc.documentElement();
+            QString name=rootElement.attribute("name","");
             int time=0; //docElement.attribute("time","").toInt();
             int cost=0; //docElement.attribute("cost","").toInt();
-            qDebug() << docElement.attribute("name","");
-            Task* lifeTask=new Task(name,root,time,cost);
+            qDebug() << rootElement.attribute("name","");
 
-            transverseNode(docElement,*lifeTask);
+
+            transverseNode(rootElement,&life);
         }
         file.close();
     }
@@ -197,17 +254,19 @@ int main(int argc, char *argv[])
     */
 
     TaskModel model(&root);
-    Task* dance=root.child(0)->child(0);
-    Task* sport=root.child(0)->child(1);
-    Task* meet =root.child(0)->child(2);
-    dance->appendChild(sport);
-    meet->appendChild(dance);
+    //Task* dance=root.child(0)->child(0);
+    //Task* sport=root.child(0)->child(1);
+    //Task* meet =root.child(0)->child(2);
+    //dance->appendChild(sport);
+    //meet->appendChild(dance);
 
     life2xml(root.child(0),"../LifeTree/lifeout.xml");
 
-    QTreeView treeView;
+    MyTreeView treeView;
     //treeView.setColumnWidth(0,500);
     treeView.setModel(&model);
+
+    QObject::connect(&treeView, SIGNAL(clicked(const QModelIndex &)), &model, SLOT(onTreeClicked(const QModelIndex &)));
 
     treeView.show();
     return a.exec();

@@ -35,16 +35,20 @@ bool TaskModel::setData(const QModelIndex &index, const QVariant &value, int rol
     if (!index.isValid())
         return false;
 
+    //emit layoutAboutToBeChanged();
     if (role==Qt::EditRole) {
         Task *task = static_cast<Task*>(index.internalPointer());
         task->setData(index.column(),value);
+        emit dataChanged(QModelIndex(),QModelIndex());
     }
     if (role==Qt::CheckStateRole) {
         Task *task = static_cast<Task*>(index.internalPointer());
         Qt::CheckState checkState = static_cast<Qt::CheckState>(value.toInt());
         task->setCheckState(checkState);
+        emit dataChanged(QModelIndex(),QModelIndex());
         return true;
     }
+
     return false;
 }
 

@@ -1,7 +1,11 @@
-﻿<task name="life" id="life">
+﻿<!DOCTYPE MyLife>
+<task name="life" id="life">
 	Текст
 	<task name="Танцы" 			id="dancing"	parent="life" 		time="0" cost="0">
 		<task name="hustle" 	id="hustle" 	parent="dancing" 	time="0" cost="0"/>
+		<task name="kizomba"  	id="kizomba" 	parent="dancing" 	time="0" cost="12">
+			<task name="индив кизомба"   	id="kizomba" 	parent="dancing" 	time="2" cost="2000" completed="100"/>
+		</task>
 		<task name="zouk"   	id="zouk"   	parent="dancing" 	time="0" cost="0">
 			<task name="повторить видео"   	id="zouk video"   	parent="" 		time="5" cost="0"/> 
 			<link with="kizomba"/>
@@ -15,9 +19,6 @@
 				<task name="виртуально"   	id="bachata" 	parent="dancing" 	time="2" cost="0"/>
 				<task name="отработать"   	id="bachata" 	parent="dancing" 	time="1" cost="0"/>
 			</task>
-		</task>
-		<task name="kizomba"  	id="kizomba" 	parent="dancing" 	time="0" cost="12">
-			<task name="индив кизомба"   	id="kizomba" 	parent="dancing" 	time="2" cost="2000" completed="100"/>
 		</task>
 		<task name="музыкальность"  	id="music sence" 	parent="dancing" 	time="4" cost="0"/>
 	</task>

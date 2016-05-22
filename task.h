@@ -4,21 +4,31 @@
 #include <QList>
 #include <QVariant>
 
+class Task;
 class TaskData
 {
 public:
     TaskData(){
         time=0;
         cost=0;
-        duplucates=1;
         visited=false;
     }
     TaskData& operator= (TaskData& td){
+        name=td.name;
         time=td.time;
         cost=td.cost;
-        duplucates=td.duplucates;
+        description=td.description;
+        id=td.id;
         visited=td.visited;
+        listTask=td.listTask;
         return *this;
+    }
+    TaskData(QString Name, int Time=0, int Cost=0 )
+    {
+        name=Name;
+        time=Time;
+        cost=Cost;
+        //id  =Id;
     }
 
     int time;
@@ -27,6 +37,7 @@ public:
     QString name;
     QString description;
     QString id;
+    QList<Task*> listTask;
     int duplucates;
 };
 
@@ -49,15 +60,16 @@ public:
         parentTask=0;
     }
 
+
     Task(QString Name, int Time=0, int Cost=0 ):Task(){
         pTaskData=new TaskData;
         pTaskData->cost=Cost;
         pTaskData->time=Time;
         pTaskData->name=Name;
-        parentTask=0;
+        pTaskData->listTask.append(this);
     }
 
-
+/*
     Task(QString Name, Task& parent, int Time=0, int Cost=0):Task(){
         pTaskData=new TaskData;
         pTaskData->cost=Cost;
@@ -66,26 +78,64 @@ public:
         parentTask=&parent;
         parentTask->childTasks.append(this);
     }
-
+*/
     ~Task(){
         for(int i=0;i<childTasks.count();i++){
             if (childTasks.value(i)->linked==false)
                 delete childTasks.value(i);
         }
-        delete pTaskData;
+        if (pTaskData){
+            TaskData* pTD=pTaskData;
+            foreach (Task* pTask, pTaskData->listTask){
+                pTask->pTaskData=0;
+            }
+            delete pTD;
+        }
     }
 
-    void appendChild(Task* childTask){
-        if (childTask->parentTask==0){
+
+    TaskData* appendChildTask(TaskData& taskData){
+        // добавляем задачу во все текущие клоны родителя
+        TaskData* pCloneChildData=new TaskData;
+        *pCloneChildData=taskData;
+        Task* pCloneChildTask;
+        foreach(Task* pCloneCurrentTask, this->pTaskData->listTask) {
+            pCloneChildTask = new Task;
+            pCloneChildTask->pTaskData=pCloneChildData;     // связываем с общей датой
+            pCloneChildTask->parentTask=pCloneCurrentTask;
+            pCloneChildTask->level=level+1;
+            pCloneChildData->listTask.append(pCloneChildTask);
+            pCloneCurrentTask->childTasks.append(pCloneChildTask);
+        }
+        return pCloneChildData;
+    }
+
+    void appendLinkedChildTask(TaskData* pLinkChildTaskData){
+        // добавляем линк во все текущие клоны родителя
+        Task* pCloneChildTask;
+        foreach(Task* pCloneCurrentTask, this->pTaskData->listTask) {
+            pCloneChildTask = new Task;
+            pCloneChildTask->pTaskData=pLinkChildTaskData;                 // связываем с общей датой
+            pCloneChildTask->parentTask=pCloneCurrentTask;
+            pCloneChildTask->level=level+1;
+            pLinkChildTaskData->listTask.append(pCloneChildTask);       // связываем с нов
+            pCloneCurrentTask->childTasks.append(pCloneChildTask);
+        }
+    }
+
+/*
+    int appendClone(Task& cloneTask){
+
+    }
+        // добавляем в свою задачу
             childTasks.append(childTask);
-            childTask->parentTask=this;
-            childTask->level=level+1;
         }
         else{
             Task* linkedTask= new Task; // create copy
             linkedTask->pTaskData=childTask->pTaskData;
             linkedTask->linked=true;
             linkedTask->parentTask=this;
+            linkedTask->pTaskData->listTask.append(this); // добавляем владельца
             childTasks.append(linkedTask);
             for(int i=0; i<childTask->childCount(); i++){
                 linkedTask->appendChild(childTask->child(i));
@@ -93,7 +143,7 @@ public:
 
         }
     }
-
+*/
     Task* child(int row)
     {
         return childTasks.value(row);
@@ -186,7 +236,8 @@ public:
             return;
         pTaskData->visited=true;
         for(int i=0; i<childTasks.count(); i++){
-            childTasks.value(i)->getTotalCost_(totalCost);
+            if (childTasks.value(i)->checkSt)
+                childTasks.value(i)->getTotalCost_(totalCost);
         }
         totalCost+=pTaskData->cost;
     }
