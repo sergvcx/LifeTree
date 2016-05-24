@@ -115,7 +115,7 @@ Qt::ItemFlags TaskModel::flags(const QModelIndex &index) const
     if (!index.isValid()) return Qt::ItemIsEnabled;
 
       Qt::ItemFlags flags;
-      if (index.column() == 0) flags = Qt::ItemIsEnabled | Qt::ItemIsSelectable | Qt::ItemIsUserCheckable;
+      if (index.column() == 0) flags = Qt::ItemIsEnabled | Qt::ItemIsSelectable | Qt::ItemIsUserCheckable | Qt::ItemIsEditable;
       if (index.column() == 1) flags = Qt::ItemIsEnabled | Qt::ItemIsSelectable | Qt::ItemIsEditable;
       if (index.column() == 2) flags = Qt::ItemIsEnabled | Qt::ItemIsSelectable | Qt::ItemIsEditable;
       return flags;

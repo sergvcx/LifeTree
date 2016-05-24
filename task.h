@@ -109,19 +109,46 @@ public:
         }
         return pCloneChildData;
     }
+    bool containsChild(TaskData* pTaskData){
+        foreach (Task* child, childTasks){
+            if (child->pTaskData==pTaskData)
+                return true;
+        }
+        return false;
+    }
 
     void appendLinkedChildTask(TaskData* pLinkChildTaskData){
         // добавляем линк во все текущие клоны родителя
         Task* pCloneChildTask;
         foreach(Task* pCloneCurrentTask, this->pTaskData->listTask) {
+            if (pCloneCurrentTask->containsChild(pLinkChildTaskData)) continue;
             pCloneChildTask = new Task;
             pCloneChildTask->pTaskData=pLinkChildTaskData;                 // связываем с общей датой
             pCloneChildTask->parentTask=pCloneCurrentTask;
             pCloneChildTask->level=level+1;
+            pCloneChildTask->linked=true;
             pLinkChildTaskData->listTask.append(pCloneChildTask);       // связываем с нов
             pCloneCurrentTask->childTasks.append(pCloneChildTask);
+
+            Task* pLinkChildTask=pLinkChildTaskData->listTask.first();
+            foreach(Task* pLinkChildChildTask, pLinkChildTask->childTasks){
+                //if (pCloneChildTask==pLinkChildChildTask->parentTask) continue;
+                pCloneChildTask->appendLinkedChildTask(pLinkChildChildTask->pTaskData);
+            }
         }
     }
+    // pCloneCurrentTask
+    //    pCloneChildTask
+    //    pCloneChildTask
+    //    pCloneChildTask->pTaskData=pLinkChildTaskData
+    //                                LinkChildTask->childTasks
+
+
+    // pCloneCurrentTask
+    //    pCloneChildTask
+    //    pCloneChildTask
+    //    pCloneChildTask->pTaskData=pLinkChildTaskData
+
 
 /*
     int appendClone(Task& cloneTask){
@@ -219,7 +246,8 @@ public:
             return;
         pTaskData->visited=true;
         for(int i=0; i<childTasks.count(); i++){
-            childTasks.value(i)->getTotalTime_(totalTime);
+            if (childTasks.value(i)->checkSt)
+                childTasks.value(i)->getTotalTime_(totalTime);
         }
         totalTime+=pTaskData->time;
     }

@@ -159,6 +159,7 @@ int life2xml(Task* pRootTask,char* fileName){
 
     QString xml = doc.toString();
     QTextStream out(&file);
+    out.setCodec("UTF-8");
     out <<  xml;
     file.close();
 }
@@ -172,24 +173,24 @@ public slots:
        QModelIndex parentIndex=currentIndex.parent();
        if (event->key()==Qt::Key_Insert && parentIndex.isValid()){
             Task *parentTask = static_cast<Task*>(parentIndex.internalPointer());
-            //int end=parentTask->childCount()-1;
             TaskData childData ("New",111,222);
-
             //rowsAboutToBeInserted(parentIndex,0,1);
             parentTask->appendChildTask(childData);
             setExpanded(parentIndex,false);
             setExpanded(parentIndex,true);
             setCurrentIndex(parentIndex.child(parentTask->childCount()-1,0));
-           //emit layoutAboutToBeChanged();
-           //dataChanged(QModelIndex(), QModelIndex());
-           //emit layoutAboutToBeChanged();
-           //emit layoutChanged();
-           //if (role == Qt::CheckStateRole ){
-           //     return task->checkState();
-           // }
-           //return task->data(index.column());
+       }
 
-           //this->collapse(currentIndex);//int g=1;
+       if(event->modifiers()&Qt::AltModifier){
+           if (event->key()==Qt::Key_Insert && currentIndex.isValid()){
+                Task *parentTask = static_cast<Task*>(currentIndex.internalPointer());
+                TaskData childData ("New",111,222);
+                //rowsAboutToBeInserted(parentIndex,0,1);
+                parentTask->appendChildTask(childData);
+                setExpanded(currentIndex,false);
+                setExpanded(currentIndex,true);
+                setCurrentIndex(currentIndex.child(parentTask->childCount()-1,0));
+           }
        }
 
        else QTreeView::keyPressEvent(event);
@@ -215,7 +216,7 @@ int main(int argc, char *argv[])
     //qDebug() << QDir::currentPath() ;
     //QCoreApplication::applicationDirPath();
     //qDebug() << QDir::currentPath() ;
-    QFile file("../LifeTree/life.xml");
+    QFile file("../LifeTree/lifeout.xml");
     if (file.open(QIODevice::ReadOnly | QIODevice::Text)){
         if (domDoc.setContent(&file)){
             QDomElement rootElement = domDoc.documentElement();
@@ -260,7 +261,7 @@ int main(int argc, char *argv[])
     //dance->appendChild(sport);
     //meet->appendChild(dance);
 
-    life2xml(root.child(0),"../LifeTree/lifeout.xml");
+
 
     MyTreeView treeView;
     //treeView.setColumnWidth(0,500);
@@ -269,6 +270,9 @@ int main(int argc, char *argv[])
     QObject::connect(&treeView, SIGNAL(clicked(const QModelIndex &)), &model, SLOT(onTreeClicked(const QModelIndex &)));
 
     treeView.show();
-    return a.exec();
+
+    a.exec();
+    life2xml(root.child(0),"../LifeTree/lifeout.xml");
+    return 0;
 }
 
