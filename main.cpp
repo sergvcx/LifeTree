@@ -181,6 +181,15 @@ public slots:
             setExpanded(parentIndex,true);
             setCurrentIndex(parentIndex.child(parentTask->childCount()-1,0));
        }
+       if (event->key()==Qt::Key_Delete && parentIndex.isValid()){
+            Task *parentTask = static_cast<Task*>(parentIndex.internalPointer());
+            TaskData childData ("New",111,222);
+            //rowsAboutToBeInserted(parentIndex,0,1);
+            parentTask->appendChildTask(childData);
+            setExpanded(parentIndex,false);
+            setExpanded(parentIndex,true);
+            setCurrentIndex(parentIndex.child(parentTask->childCount()-1,0));
+       }
 
        if(event->modifiers()&Qt::AltModifier){
            if (event->key()==Qt::Key_Insert && currentIndex.isValid()){

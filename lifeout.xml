@@ -1,39 +1,43 @@
 <!DOCTYPE MyLife>
 <task name="life">
- <task id="dancing" name="Танцы" time="0" cost="0">
-  <task id="hustle" name="hustle" time="0" cost="0"/>
-  <task id="kizomba" name="kizomba" time="0" cost="12">
-   <task id="kizomba0" name="индив кизомба" time="2" cost="2000">
-    <task id="" name="New" time="111" cost="222">
-     <task id="0" name="555555555" time="111" cost="222"/>
-     <task id="" name="New" time="111" cost="222">
-      <task id="" name="fff" time="111" cost="222"/>
+ <task time="0" cost="0" name="Танцы" id="dancing">
+  <task time="0" cost="0" name="hustle" id="hustle"/>
+  <task time="0" cost="12" name="kizomba" id="kizomba">
+   <task time="2" cost="2000" name="индив кизомба" id="kizomba0">
+    <task time="111" cost="222" name="New" id="">
+     <task time="111" cost="222" name="555555555" id="0"/>
+     <task time="111" cost="222" name="New" id="00">
+      <task time="111" cost="222" name="fff" id="000"/>
      </task>
-     <task id="" name="New" time="111" cost="222"/>
+     <task time="111" cost="222" name="New" id="0000"/>
     </task>
-    <task id="00" name="New" time="111" cost="222"/>
+    <task time="111" cost="222" name="New" id="00000"/>
    </task>
-   <task id="000" name="New" time="111" cost="222"/>
+   <task time="111" cost="222" name="New" id="000000"/>
   </task>
-  <task id="zouk" name="zouk" time="0" cost="0">
-   <task id="zouk video" name="повторить видео" time="5" cost="0"/>
+  <task time="0" cost="0" name="zouk" id="zouk">
+   <task time="5" cost="0" name="повторить видео" id="zouk video"/>
    <link with="kizomba"/>
-   <task id="zouk disco" name="зук вечеринки" time="8" cost="1600"/>
-   <task id="zouk class" name="занятия по зуку" time="12" cost="4000"/>
-   <task id="zouk masters" name="мастерклассы по зуку" time="12" cost="9000"/>
+   <task time="8" cost="1600" name="зук вечеринки" id="zouk disco"/>
+   <task time="12" cost="4000" name="занятия по зуку" id="zouk class"/>
+   <task time="12" cost="9000" name="мастерклассы по зуку" id="zouk masters"/>
   </task>
-  <task id="bachata" name="bachata" time="0" cost="0">
-   <task id="bachata0" name="индив bachata" time="2" cost="2000"/>
-   <task id="bachata00" name="видео от кати" time="0" cost="0">
-    <task id="bachata000" name="виртуально" time="2" cost="0"/>
-    <task id="bachata0000" name="отработать" time="1" cost="0"/>
+  <task time="0" cost="0" name="bachata" id="bachata">
+   <task time="2" cost="2000" name="индив bachata" id="bachata0"/>
+   <task time="0" cost="0" name="видео от кати" id="bachata00">
+    <task time="2" cost="0" name="виртуально" id="bachata000"/>
+    <task time="1" cost="0" name="отработать" id="bachata0000"/>
    </task>
   </task>
-  <task id="music sence" name="музыкальность" time="4" cost="0"/>
+  <task time="4" cost="0" name="музыкальность" id="music sence"/>
  </task>
- <task id="sport" name="Спорт" time="0" cost="0"/>
- <task id="meeting" name="Встреча" time="0" cost="0">
-  <task id="masha" name="Маша" time="2" cost="1000"/>
+ <task time="0" cost="0" name="Спорт" id="sport"/>
+ <task time="0" cost="0" name="Встреча" id="meeting">
+  <task time="2" cost="1000" name="Маша" id="masha"/>
  </task>
- <task id="id-000" name="спорт" time="0" cost="0"/>
+ <task time="0" cost="0" name="спорт" id="id-000"/>
+ <task time="111" cost="222" name="New" id=""/>
+ <task time="111" cost="222" name="New" id=""/>
+ <task time="111" cost="222" name="New" id=""/>
+ <task time="111" cost="222" name="New" id=""/>
 </task>
