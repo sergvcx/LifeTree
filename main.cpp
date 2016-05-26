@@ -96,20 +96,21 @@ tag.appendChild(t);
 
 int appendTaskNode(QDomDocument& doc,  QDomElement& parentElement, Task* pTask){
     QDomElement childElement;
-    if (pTask->linked){
+
+    if (pTask->pTaskData->listTask.first()!=pTask){
         childElement = doc.createElement("link");
 
-        QDomAttr attrID = doc.createAttribute("id");
+        QDomAttr attrID = doc.createAttribute("with");
         attrID.setValue(pTask->pTaskData->id);
         childElement.setAttributeNode(attrID);
 
         parentElement.appendChild(childElement);
 
-        for(int i=0; i<pTask->childCount();i++){
-            Task* pChildTask=pTask->child(i);
-            if (!pChildTask->linked)
-                appendTaskNode(doc,childElement,pChildTask);
-        }
+        //for(int i=0; i<pTask->childCount();i++){
+        //    Task* pChildTask=pTask->child(i);
+        //    if (!pChildTask->linked)
+        //        appendTaskNode(doc,childElement,pChildTask);
+        //}
     }
     else {
         childElement = doc.createElement("task");
@@ -216,6 +217,7 @@ int main(int argc, char *argv[])
     //qDebug() << QDir::currentPath() ;
     //QCoreApplication::applicationDirPath();
     //qDebug() << QDir::currentPath() ;
+    //QFile file("../LifeTree/lifeout.xml");
     QFile file("../LifeTree/lifeout.xml");
     if (file.open(QIODevice::ReadOnly | QIODevice::Text)){
         if (domDoc.setContent(&file)){
