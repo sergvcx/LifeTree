@@ -1,0 +1,39 @@
+<!DOCTYPE MyLife>
+<task name="life">
+ <task cost="0" time="0" id="dancing" name="Танцы">
+  <task cost="0" time="0" id="hustle" name="hustle"/>
+  <task cost="12" time="0" id="kizomba" name="kizomba">
+   <task cost="2000" time="2" id="kizomba0" name="индив кизомба"/>
+   <task cost="222" time="111" id="" name="New"/>
+   <task cost="222" time="111" id="0" name="New"/>
+  </task>
+  <task cost="0" time="0" id="zouk" name="zouk">
+   <task cost="0" time="5" id="zouk video" name="повторить видео"/>
+   <task cost="12" time="0" id="kizomba00" name="kizomba">
+    <task cost="2000" time="2" id="kizomba000" name="индив кизомба"/>
+    <task cost="222" time="111" id="00" name="New"/>
+    <task cost="222" time="111" id="000" name="New"/>
+   </task>
+   <task cost="1600" time="8" id="zouk disco" name="зук вечеринки"/>
+   <task cost="4000" time="12" id="zouk class" name="занятия по зуку"/>
+   <task cost="9000" time="12" id="zouk masters" name="мастерклассы по зуку"/>
+  </task>
+  <task cost="0" time="0" id="bachata" name="bachata">
+   <task cost="2000" time="2" id="bachata0" name="индив bachata"/>
+   <task cost="0" time="0" id="bachata00" name="видео от кати">
+    <task cost="0" time="2" id="bachata000" name="виртуально"/>
+    <task cost="0" time="1" id="bachata0000" name="отработать"/>
+   </task>
+  </task>
+  <task cost="0" time="4" id="music sence" name="музыкальность"/>
+ </task>
+ <task cost="0" time="0" id="sport" name="Спорт"/>
+ <task cost="0" time="0" id="meeting" name="Встреча">
+  <task cost="1000" time="2" id="masha" name="Маша"/>
+ </task>
+ <task cost="0" time="0" id="id-000" name="спорт"/>
+ <task cost="222" time="111" id="0000" name="New">
+  <task cost="222" time="111" id="00000" name="New"/>
+ </task>
+ <task cost="222" time="111" id="000000" name="New"/>
+</task>
