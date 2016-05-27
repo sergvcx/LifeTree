@@ -83,7 +83,7 @@ public:
         while(!childTasks.isEmpty()){
             Task* childTask=childTasks.last();
             delete childTask;
-            childTasks.removeLast();
+            //childTasks.removeLast();
         }
         // удаляем всех владельцов этой TaskData и удаляем из списка детей их родителей
         while (pTaskData->listTask.count()){

@@ -166,7 +166,13 @@ int life2xml(Task* pRootTask,char* fileName){
 }
 
 
+
 class MyTreeView: public QTreeView {
+//signals:
+//    void	doubleClicked(const QModelIndex & index){
+//
+//        QTreeView::doubleClicked(index);
+//    }
 public slots:
     void keyPressEvent(QKeyEvent* event)
     {
@@ -293,6 +299,7 @@ int main(int argc, char *argv[])
     treeView.setModel(&model);
 
     QObject::connect(&treeView, SIGNAL(clicked(const QModelIndex &)), &model, SLOT(onTreeClicked(const QModelIndex &)));
+    QObject::connect(&treeView, SIGNAL(doubleClicked(const QModelIndex &)), &model, SLOT(onTreeDoubleClicked(const QModelIndex &)));
 
     treeView.show();
 

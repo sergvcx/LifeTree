@@ -36,6 +36,33 @@ public slots:
         if (index.isValid()) {
             QString cellText = index.data().toString();
         }
+    }
+
+    void onTreeDoubleClicked(const QModelIndex &index)
+    {
+        if (index.isValid()) {
+            QString cellText = index.data().toString();
+        }
+        QModelIndex parentIndex=index.parent();
+        Task *currentTask = static_cast<Task*>(index.internalPointer());
+        Task *parentTask  = currentTask->parentTask; //static_cast<Task*>(parentIndex.internalPointer());
+        int idx=parentTask->childTasks.indexOf(currentTask);
+        Q_ASSERT(idx>=0);
+        beginResetModel();
+
+        delete currentTask;
+        //parentTask->childTasks.removeAt(idx);
+        //pModel->resetModel();
+        endResetModel();
+        //pModel->reset();
+
+        //pModel->dataChanged(QModelIndex(),QModelIndex());
+
+
+
+        //setExpanded(parentIndex,false);
+        //setExpanded(parentIndex,true);
+        //setCurrentIndex(parentIndex);
 
     }
 
