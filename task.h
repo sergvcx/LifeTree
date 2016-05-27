@@ -44,7 +44,7 @@ public:
 class Task {
 public:
     int level;
-    bool linked;
+    bool alive;
     Task* parentTask;
     TaskData* pTaskData;
     QList<Task*> childTasks;
@@ -53,7 +53,7 @@ public:
     Qt::CheckState      checkState() { return checkSt; }
 
     Task(){
-        linked=false;
+        alive=true;
         level=0;
         checkSt=Qt::Checked;
         pTaskData=0;
@@ -80,18 +80,36 @@ public:
     }
 */
     ~Task(){
-        for(int i=0;i<childTasks.count();i++){
-            if (childTasks.value(i)->linked==false)
-                delete childTasks.value(i);
+        while(!childTasks.isEmpty()){
+            Task* childTask=childTasks.last();
+            delete childTask;
+            childTasks.removeLast();
         }
-        if (pTaskData){
-            TaskData* pTD=pTaskData;
-            foreach (Task* pTask, pTaskData->listTask){
-                pTask->pTaskData=0;
-            }
-            delete pTD;
+        // удаляем всех владельцов этой TaskData и удаляем из списка детей их родителей
+        while (pTaskData->listTask.count()){
+            Task* ownerTask=pTaskData->listTask.last();
+            int idx=ownerTask->parentTask->childTasks.indexOf(ownerTask);
+            Q_ASSERT(idx>=0);
+            Q_ASSERT(ownerTask->childTasks.count()==0);
+            ownerTask->parentTask->childTasks.removeAt(idx);
+            pTaskData->listTask.removeLast();
         }
+        // удалем саму pDataData
+        delete pTaskData;
     }
+
+    void die(){
+        foreach(Task* childTask,childTasks){
+            childTask->die();
+        }
+        // убиваем всех владельцов этой TaskData
+        foreach (Task* ownerTask, pTaskData->listTask){
+            ownerTask->alive=false;6;
+        }
+        // удалем саму pDataData
+        delete pTaskData;
+    }
+
 
 
     TaskData* appendChildTask(TaskData& taskData){
@@ -126,7 +144,7 @@ public:
             pCloneChildTask->pTaskData=pLinkChildTaskData;                 // связываем с общей датой
             pCloneChildTask->parentTask=pCloneCurrentTask;
             pCloneChildTask->level=level+1;
-            pCloneChildTask->linked=true;
+            //pCloneChildTask->linked=true;
             pLinkChildTaskData->listTask.append(pCloneChildTask);       // связываем с нов
             pCloneCurrentTask->childTasks.append(pCloneChildTask);
 

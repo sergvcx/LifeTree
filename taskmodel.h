@@ -22,7 +22,13 @@ public:
     int columnCount(const QModelIndex &parent = QModelIndex()) const ;
     bool setData(const QModelIndex &index, const QVariant &value, int role);
 
+void myBeginResetModel(){
+    beginResetModel();
+}
 
+void myEndResetModel(){
+    endResetModel();
+}
 
 public slots:
     void onTreeClicked(const QModelIndex &index)
@@ -30,6 +36,7 @@ public slots:
         if (index.isValid()) {
             QString cellText = index.data().toString();
         }
+
     }
 
 

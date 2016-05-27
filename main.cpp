@@ -8,7 +8,7 @@
 #include <QDir>
 #include <QMap>
 #include "taskmodel.h"
-
+TaskModel* pModel;
 QMap<QString,TaskData* > mapTaskData;
 // чтени XML - рекурсивный разбор XML узла
 void transverseNode(const QDomNode& Node, Task* parent){
@@ -182,13 +182,26 @@ public slots:
             setCurrentIndex(parentIndex.child(parentTask->childCount()-1,0));
        }
        if (event->key()==Qt::Key_Delete && parentIndex.isValid()){
+            Task *currentTask = static_cast<Task*>(currentIndex.internalPointer());
             Task *parentTask = static_cast<Task*>(parentIndex.internalPointer());
-            TaskData childData ("New",111,222);
-            //rowsAboutToBeInserted(parentIndex,0,1);
-            parentTask->appendChildTask(childData);
+            int idx=parentTask->childTasks.indexOf(currentTask);
+            Q_ASSERT(idx>=0);
+            parentTask->childTasks.removeAt(idx);
+            //pModel->beginResetModel();
+            pModel->myBeginResetModel();
+            delete currentTask;
+            //pModel->resetModel();
+
+            pModel->myEndResetModel();
+            //pModel->reset();
+
+            //pModel->dataChanged(QModelIndex(),QModelIndex());
+
+
+
             setExpanded(parentIndex,false);
             setExpanded(parentIndex,true);
-            setCurrentIndex(parentIndex.child(parentTask->childCount()-1,0));
+            setCurrentIndex(parentIndex);
        }
 
        if(event->modifiers()&Qt::AltModifier){
@@ -266,6 +279,7 @@ int main(int argc, char *argv[])
     */
 
     TaskModel model(&root);
+    TaskModel* pModel=&model;
     //Task* dance=root.child(0)->child(0);
     //Task* sport=root.child(0)->child(1);
     //Task* meet =root.child(0)->child(2);
