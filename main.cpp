@@ -168,12 +168,17 @@ int life2xml(Task* pRootTask,char* fileName){
 
 
 class MyTreeView: public QTreeView {
-//signals:
-//    void	doubleClicked(const QModelIndex & index){
-//
-//        QTreeView::doubleClicked(index);
-//    }
+Q_OBJECT
+signals:
+    void	doubleClickedEvent(const QModelIndex & index);
+
 public slots:
+
+    void	onTreeDoubleClicked(const QModelIndex & index){
+
+        //QTreeView::doubleClicked(index);
+        emit doubleClickedEvent(index);
+    }
     void keyPressEvent(QKeyEvent* event)
     {
        QModelIndex currentIndex=this->currentIndex();
@@ -189,7 +194,7 @@ public slots:
        }
        if (event->key()==Qt::Key_Delete && parentIndex.isValid()){
             Task *currentTask = static_cast<Task*>(currentIndex.internalPointer());
-            Task *parentTask = static_cast<Task*>(parentIndex.internalPointer());
+            Task *parentTask  = static_cast<Task*>(parentIndex.internalPointer());
             int idx=parentTask->childTasks.indexOf(currentTask);
             Q_ASSERT(idx>=0);
             parentTask->childTasks.removeAt(idx);
@@ -246,7 +251,7 @@ int main(int argc, char *argv[])
     //QCoreApplication::applicationDirPath();
     //qDebug() << QDir::currentPath() ;
     //QFile file("../LifeTree/lifeout.xml");
-    QFile file("../LifeTree/lifeout.xml");
+    QFile file("../LifeTree/life.xml");
     if (file.open(QIODevice::ReadOnly | QIODevice::Text)){
         if (domDoc.setContent(&file)){
             QDomElement rootElement = domDoc.documentElement();
@@ -299,7 +304,9 @@ int main(int argc, char *argv[])
     treeView.setModel(&model);
 
     QObject::connect(&treeView, SIGNAL(clicked(const QModelIndex &)), &model, SLOT(onTreeClicked(const QModelIndex &)));
-    QObject::connect(&treeView, SIGNAL(doubleClicked(const QModelIndex &)), &model, SLOT(onTreeDoubleClicked(const QModelIndex &)));
+    //QObject::connect(&treeView, SIGNAL(doubleClicked(const QModelIndex &)), &model, SLOT(onTreeDoubleClicked(const QModelIndex &)));
+    QObject::connect(&treeView, SIGNAL(doubleClicked(const QModelIndex &)), &treeView, SLOT(onTreeDoubleClicked(const QModelIndex &)));
+    //QObject::connect(&treeView, SIGNAL(doubleClickedEvent(const QModelIndex &)), &model, SLOT(onTreeDoubleClicked(const QModelIndex &)));
 
     treeView.show();
 
