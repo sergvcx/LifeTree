@@ -15,10 +15,12 @@ TEMPLATE = app
 SOURCES += main.cpp\
         mainwindow.cpp \
     taskmodel.cpp \
-    task.cpp
+    task.cpp \
+    mytreeview.cpp
 
 HEADERS  += mainwindow.h \
     taskmodel.h \
-    task.h
+    task.h \
+    mytreeview.h
 
 FORMS    += mainwindow.ui

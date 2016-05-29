@@ -20,7 +20,7 @@ public:
         description=td.description;
         id=td.id;
         visited=td.visited;
-        listTask=td.listTask;
+        //listTask=td.listTask;
         return *this;
     }
     TaskData(QString Name, int Time=0, int Cost=0 )
@@ -44,7 +44,7 @@ public:
 class Task {
 public:
     int level;
-    bool alive;
+    bool expanded;
     Task* parentTask;
     TaskData* pTaskData;
     QList<Task*> childTasks;
@@ -53,7 +53,7 @@ public:
     Qt::CheckState      checkState() { return checkSt; }
 
     Task(){
-        alive=true;
+        expanded=false;
         level=0;
         checkSt=Qt::Checked;
         pTaskData=0;
@@ -88,11 +88,14 @@ public:
         // удаляем всех владельцов этой TaskData и удаляем из списка детей их родителей
         while (pTaskData->listTask.count()){
             Task* ownerTask=pTaskData->listTask.last();
-            int idx=ownerTask->parentTask->childTasks.indexOf(ownerTask);
-            Q_ASSERT(idx>=0);
-            Q_ASSERT(ownerTask->childTasks.count()==0);
-            ownerTask->parentTask->childTasks.removeAt(idx);
+            if (ownerTask->parentTask){
+                int idx=ownerTask->parentTask->childTasks.indexOf(ownerTask);
+                Q_ASSERT(idx>=0);
+                Q_ASSERT(ownerTask->childTasks.count()==0);
+                ownerTask->parentTask->childTasks.removeAt(idx);
+            }
             pTaskData->listTask.removeLast();
+
         }
         // удалем саму pDataData
         delete pTaskData;
@@ -103,9 +106,9 @@ public:
             childTask->die();
         }
         // убиваем всех владельцов этой TaskData
-        foreach (Task* ownerTask, pTaskData->listTask){
-            ownerTask->alive=false;6;
-        }
+        //foreach (Task* ownerTask, pTaskData->listTask){
+        //    ownerTask->alive=false;6;
+        //}
         // удалем саму pDataData
         delete pTaskData;
     }
@@ -127,6 +130,38 @@ public:
         }
         return pCloneChildData;
     }
+    TaskData* insertChildTask(TaskData& taskData, int before){
+        // добавляем задачу во все текущие клоны родителя
+        TaskData* pCloneChildData=new TaskData;
+        *pCloneChildData=taskData;
+        Task* pCloneChildTask;
+        foreach(Task* pCloneCurrentTask, this->pTaskData->listTask) {
+            pCloneChildTask = new Task;
+            pCloneChildTask->pTaskData=pCloneChildData;     // связываем с общей датой
+            pCloneChildTask->parentTask=pCloneCurrentTask;
+            pCloneChildTask->level=level+1;
+            pCloneChildData->listTask.append(pCloneChildTask);
+            pCloneCurrentTask->childTasks.insert(before,pCloneChildTask);
+        }
+        return pCloneChildData;
+    }
+
+    /*
+    TaskData* appendChildTask(TaskData* taskData){
+        // добавляем задачу во все текущие клоны родителя
+        TaskData* pCloneChildData=new TaskData;
+        *pCloneChildData=taskData;
+        Task* pCloneChildTask;
+        foreach(Task* pCloneCurrentTask, this->pTaskData->listTask) {
+            pCloneChildTask = new Task;
+            pCloneChildTask->pTaskData=pCloneChildData;     // связываем с общей датой
+            pCloneChildTask->parentTask=pCloneCurrentTask;
+            pCloneChildTask->level=level+1;
+            pCloneChildData->listTask.append(pCloneChildTask);
+            pCloneCurrentTask->childTasks.append(pCloneChildTask);
+        }
+        return pCloneChildData;
+    }*/
     bool containsChild(TaskData* pTaskData){
         foreach (Task* child, childTasks){
             if (child->pTaskData==pTaskData)

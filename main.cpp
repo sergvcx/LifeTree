@@ -8,7 +8,9 @@
 #include <QDir>
 #include <QMap>
 #include "taskmodel.h"
-TaskModel* pModel;
+#include "mytreeview.h"
+
+
 QMap<QString,TaskData* > mapTaskData;
 // чтени XML - рекурсивный разбор XML узла
 void transverseNode(const QDomNode& Node, Task* parent){
@@ -167,70 +169,6 @@ int life2xml(Task* pRootTask,char* fileName){
 
 
 
-class MyTreeView: public QTreeView {
-Q_OBJECT
-signals:
-    void	doubleClickedEvent(const QModelIndex & index);
-
-public slots:
-
-    void	onTreeDoubleClicked(const QModelIndex & index){
-
-        //QTreeView::doubleClicked(index);
-        emit doubleClickedEvent(index);
-    }
-    void keyPressEvent(QKeyEvent* event)
-    {
-       QModelIndex currentIndex=this->currentIndex();
-       QModelIndex parentIndex=currentIndex.parent();
-       if (event->key()==Qt::Key_Insert && parentIndex.isValid()){
-            Task *parentTask = static_cast<Task*>(parentIndex.internalPointer());
-            TaskData childData ("New",111,222);
-            //rowsAboutToBeInserted(parentIndex,0,1);
-            parentTask->appendChildTask(childData);
-            setExpanded(parentIndex,false);
-            setExpanded(parentIndex,true);
-            setCurrentIndex(parentIndex.child(parentTask->childCount()-1,0));
-       }
-       if (event->key()==Qt::Key_Delete && parentIndex.isValid()){
-            Task *currentTask = static_cast<Task*>(currentIndex.internalPointer());
-            Task *parentTask  = static_cast<Task*>(parentIndex.internalPointer());
-            int idx=parentTask->childTasks.indexOf(currentTask);
-            Q_ASSERT(idx>=0);
-            parentTask->childTasks.removeAt(idx);
-            //pModel->beginResetModel();
-            pModel->myBeginResetModel();
-            delete currentTask;
-            //pModel->resetModel();
-
-            pModel->myEndResetModel();
-            //pModel->reset();
-
-            //pModel->dataChanged(QModelIndex(),QModelIndex());
-
-
-
-            setExpanded(parentIndex,false);
-            setExpanded(parentIndex,true);
-            setCurrentIndex(parentIndex);
-       }
-
-       if(event->modifiers()&Qt::AltModifier){
-           if (event->key()==Qt::Key_Insert && currentIndex.isValid()){
-                Task *parentTask = static_cast<Task*>(currentIndex.internalPointer());
-                TaskData childData ("New",111,222);
-                //rowsAboutToBeInserted(parentIndex,0,1);
-                parentTask->appendChildTask(childData);
-                setExpanded(currentIndex,false);
-                setExpanded(currentIndex,true);
-                setCurrentIndex(currentIndex.child(parentTask->childCount()-1,0));
-           }
-       }
-
-       else QTreeView::keyPressEvent(event);
-       resizeColumnToContents(0);
-    }
-};
 
 
 
@@ -240,10 +178,10 @@ int main(int argc, char *argv[])
     //MainWindow w;
     //a.resize(10,10);
 
-    Task root("root");
-    Task life("life");
-    root.childTasks.append(&life);
-    life.parentTask=&root;
+    Task  root("root");
+    Task  life("life");
+    root.appendChildTask(*(life.pTaskData));
+    //life->parentTask=&root;
 
     QDomDocument domDoc;
     //QFile file("d:/life.xml");
@@ -261,7 +199,7 @@ int main(int argc, char *argv[])
             qDebug() << rootElement.attribute("name","");
 
 
-            transverseNode(rootElement,&life);
+            transverseNode(rootElement,root.childTasks.first());
         }
         file.close();
     }
@@ -302,11 +240,17 @@ int main(int argc, char *argv[])
     MyTreeView treeView;
     //treeView.setColumnWidth(0,500);
     treeView.setModel(&model);
+    //QModelIndexList d=model.persistentIndexList();
 
     QObject::connect(&treeView, SIGNAL(clicked(const QModelIndex &)), &model, SLOT(onTreeClicked(const QModelIndex &)));
+    QObject::connect(&treeView, SIGNAL(deleteKeyEvent(const QModelIndex &)), &model, SLOT(onDeleteKey(const QModelIndex &)));
+    QObject::connect(&treeView, SIGNAL(insertKeyEvent(const QModelIndex &)), &model, SLOT(onInsertKey(const QModelIndex &)));
+    QObject::connect(&treeView, SIGNAL(insertAltKeyEvent(const QModelIndex &)), &model, SLOT(onInsertAltKey(const QModelIndex &)));
     //QObject::connect(&treeView, SIGNAL(doubleClicked(const QModelIndex &)), &model, SLOT(onTreeDoubleClicked(const QModelIndex &)));
-    QObject::connect(&treeView, SIGNAL(doubleClicked(const QModelIndex &)), &treeView, SLOT(onTreeDoubleClicked(const QModelIndex &)));
-    //QObject::connect(&treeView, SIGNAL(doubleClickedEvent(const QModelIndex &)), &model, SLOT(onTreeDoubleClicked(const QModelIndex &)));
+    //QObject::connect(&treeView, SIGNAL(doubleClicked(const QModelIndex &)), &treeView, SLOT(onTreeDoubleClicked(const QModelIndex &)));
+    QObject::connect(&treeView, SIGNAL(collapsed(const QModelIndex &)), &treeView, SLOT(onCollapsed(const QModelIndex &)));
+
+
 
     treeView.show();
 
