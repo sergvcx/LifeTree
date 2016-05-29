@@ -189,7 +189,7 @@ int main(int argc, char *argv[])
     //QCoreApplication::applicationDirPath();
     //qDebug() << QDir::currentPath() ;
     //QFile file("../LifeTree/lifeout.xml");
-    QFile file("../LifeTree/life.xml");
+    QFile file("../LifeTree/lifeout.xml");
     if (file.open(QIODevice::ReadOnly | QIODevice::Text)){
         if (domDoc.setContent(&file)){
             QDomElement rootElement = domDoc.documentElement();

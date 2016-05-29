@@ -101,17 +101,6 @@ public:
         delete pTaskData;
     }
 
-    void die(){
-        foreach(Task* childTask,childTasks){
-            childTask->die();
-        }
-        // убиваем всех владельцов этой TaskData
-        //foreach (Task* ownerTask, pTaskData->listTask){
-        //    ownerTask->alive=false;6;
-        //}
-        // удалем саму pDataData
-        delete pTaskData;
-    }
 
 
 
@@ -130,6 +119,7 @@ public:
         }
         return pCloneChildData;
     }
+
     TaskData* insertChildTask(TaskData& taskData, int before){
         // добавляем задачу во все текущие клоны родителя
         TaskData* pCloneChildData=new TaskData;
@@ -244,7 +234,7 @@ public:
     int columnCount()
     {
         //return dataTask.count();
-        return 3;
+        return 4;
     }
 
     QVariant data(int column)
@@ -257,6 +247,9 @@ public:
                 return QVariant(QString::number(pTaskData->time)+"("+QString::number(getTotalTime())+")");
             case 2:
                 return QVariant(QString::number(pTaskData->cost)+"("+QString::number(getTotalCost())+")");
+            case 3:
+                return QVariant(QString::number(pTaskData->listTask.count()));
+
         }
 
         //return dataTask.value(column);

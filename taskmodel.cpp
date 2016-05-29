@@ -140,3 +140,71 @@ QVariant TaskModel::headerData(int section, Qt::Orientation orientation, int rol
     return QVariant();
 }
 
+void TaskModel::onTreeClicked(const QModelIndex &index)
+{
+    if (index.isValid()) {
+        QString cellText = index.data().toString();
+    }
+}
+void TaskModel::onInsertKey(const QModelIndex &index)
+{
+    if (!index.isValid()) {
+        return;
+    }
+    QModelIndex parentIndex=index.parent();
+    Task *currentTask = static_cast<Task*>(index.internalPointer());
+    Task *parentTask  = currentTask->parentTask; //static_cast<Task*>(parentIndex.internalPointer());
+    int idx=parentTask->childTasks.indexOf(currentTask);
+    Q_ASSERT(idx>=0);
+    beginInsertRows(parentIndex, currentTask->row()+1, currentTask->row()+1);
+    TaskData childData ("New",111,222);
+    parentTask->insertChildTask(childData,index.row()+1);
+    endInsertRows();
+}
+
+void TaskModel::onInsertAltKey(const QModelIndex &index)
+{
+    if (!index.isValid()) {
+        return;
+    }
+    QModelIndex parentIndex=index.parent();
+    Task *currentTask = static_cast<Task*>(index.internalPointer());
+    beginInsertRows(index, currentTask->columnCount(), currentTask->columnCount());
+    TaskData childData ("SubNew",111,222);
+    currentTask->appendChildTask(childData);
+    endInsertRows();
+}
+
+
+
+void TaskModel::onDeleteKey(const QModelIndex &index)
+{
+    if (!index.isValid()) {
+        return;
+    }
+    QModelIndex parentIndex=index.parent();
+    Task *currentTask = static_cast<Task*>(index.internalPointer());
+    Task *parentTask  = currentTask->parentTask; //static_cast<Task*>(parentIndex.internalPointer());
+    int idx=parentTask->childTasks.indexOf(currentTask);
+    Q_ASSERT(idx>=0);
+    //beginResetModel();
+
+    beginRemoveRows(parentIndex, currentTask->row(), currentTask->row());
+    delete currentTask;
+    endRemoveRows();
+    //parentTask->childTasks.removeAt(idx);
+    //pModel->resetModel();
+    //endResetModel();
+    //pModel->reset();
+
+    //pModel->dataChanged(QModelIndex(),QModelIndex());
+
+
+
+    //setExpanded(parentIndex,false);
+    //setExpanded(parentIndex,true);
+    //setCurrentIndex(parentIndex);
+}
+
+
+
