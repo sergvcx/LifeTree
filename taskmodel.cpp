@@ -128,11 +128,13 @@ QVariant TaskModel::headerData(int section, Qt::Orientation orientation, int rol
     if (orientation == Qt::Horizontal && role == Qt::DisplayRole){
         switch(section){
             case 0:
-                return QVariant("Task------------------------------");
+                return QVariant("Task");
             case 1:
                 return QVariant("Time");
             case 2:
                 return QVariant("Cost");
+            case 3:
+                return QVariant("Duplicates");
         }
 
         //return rootTask->data(section);

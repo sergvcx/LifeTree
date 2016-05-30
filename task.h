@@ -31,7 +31,7 @@ public:
         //id  =Id;
     }
 
-    int time;
+    double time;
     int cost;
     bool visited;
     QString name;
@@ -244,7 +244,7 @@ public:
             case 0:
                 return QVariant(pTaskData->name);
             case 1:
-                return QVariant(QString::number(pTaskData->time)+"("+QString::number(getTotalTime())+")");
+                return QVariant(QString::number(pTaskData->time,'g',2)+"("+QString::number(getTotalTime())+")");
             case 2:
                 return QVariant(QString::number(pTaskData->cost)+"("+QString::number(getTotalCost())+")");
             case 3:
@@ -262,7 +262,7 @@ public:
                 pTaskData->name=value.toString();
                 break;
             case 1:
-                pTaskData->time=value.toInt();
+                pTaskData->time=value.toDouble();
                 break;
             case 2:
                 pTaskData->cost=value.toInt();
@@ -280,14 +280,14 @@ public:
         return parentTask;
     }
 
-    int getTotalTime(){
-        int totalTime=0;
+    double getTotalTime(){
+        double totalTime=0;
         resetVisits();
         getTotalTime_(totalTime);
         return totalTime;
     }
 
-    void getTotalTime_(int& totalTime){
+    void getTotalTime_(double& totalTime){
         if (pTaskData->visited)
             return;
         pTaskData->visited=true;

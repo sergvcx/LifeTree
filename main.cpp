@@ -26,7 +26,7 @@ void transverseNode(const QDomNode& Node, Task* parent){
                     int cost=0;
                     QString id="id-000";
                     if (domElement.hasAttribute("time")){
-                        time=domElement.attribute("time","").toInt();
+                        time=domElement.attribute("time","").toFloat();
                     }
                     if (domElement.hasAttribute("id")){
                         id=domElement.attribute("id","");
@@ -122,7 +122,7 @@ int appendTaskNode(QDomDocument& doc,  QDomElement& parentElement, Task* pTask){
         childElement.setAttributeNode(attrName);
 
         QDomAttr attrTime = doc.createAttribute("time");
-        attrTime.setValue(QString::number(pTask->pTaskData->time));
+        attrTime.setValue(QString::number(pTask->pTaskData->time,'g',2));
         childElement.setAttributeNode(attrTime);
 
         QDomAttr attrCost = doc.createAttribute("cost");
