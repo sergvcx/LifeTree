@@ -24,15 +24,15 @@
   </task>
  </task>
  <task time="0" cost="0" name="Работа" id="0"/>
- <task time="0" cost="0" name="Спорт" id="sport"/>
+ <task time="0.5" cost="0" name="Спорт" id="sport"/>
  <task time="0" cost="0" name="Встреча" id="meeting">
   <task time="2" cost="1000" name="Маша" id="masha"/>
   <task time="2" cost="1000" name="Оля" id="00"/>
  </task>
  <task time="0" cost="0" name="Машина" id="000">
-  <task time="0.5" cost="1" name="Кондиционер" id="0000"/>
-  <task time="0.5" cost="0" name="Обивка" id="00000"/>
-  <task time="0.25" cost="0" name="Доливка" id="000000"/>
+  <task time="0" cost="1" name="Кондиционер" id="0000"/>
+  <task time="0" cost="0" name="Обивка" id="00000"/>
+  <task time="0" cost="0" name="Доливка" id="000000"/>
   <task time="0" cost="1" name="Фильтр" id="0000000"/>
  </task>
 </task>

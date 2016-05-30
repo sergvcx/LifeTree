@@ -159,7 +159,7 @@ void TaskModel::onInsertKey(const QModelIndex &index)
     int idx=parentTask->childTasks.indexOf(currentTask);
     Q_ASSERT(idx>=0);
     beginInsertRows(parentIndex, currentTask->row()+1, currentTask->row()+1);
-    TaskData childData ("New",111,222);
+    TaskData childData ("New",0,0);
     parentTask->insertChildTask(childData,index.row()+1);
     endInsertRows();
 }
@@ -172,7 +172,7 @@ void TaskModel::onInsertAltKey(const QModelIndex &index)
     QModelIndex parentIndex=index.parent();
     Task *currentTask = static_cast<Task*>(index.internalPointer());
     beginInsertRows(index, currentTask->columnCount(), currentTask->columnCount());
-    TaskData childData ("SubNew",111,222);
+    TaskData childData ("SubNew",0,0);
     currentTask->appendChildTask(childData);
     endInsertRows();
 }
