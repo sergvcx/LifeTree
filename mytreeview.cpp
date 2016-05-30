@@ -91,26 +91,30 @@ void MyTreeView::restoreState(void)
 void MyTreeView::keyPressEvent(QKeyEvent* event)
 {
    QModelIndex currentIndex=this->currentIndex();
+   if (!currentIndex.isValid()) return;
+
    QModelIndex parentIndex=currentIndex.parent();
-   if (event->key()==Qt::Key_Insert && parentIndex.isValid()){
-        Task *parentTask = static_cast<Task*>(parentIndex.internalPointer());
-        emit insertKeyEvent(currentIndex);
-        setCurrentIndex(parentIndex.child(currentIndex.row()+1,0));
-   }
+
    if (event->key()==Qt::Key_Delete && parentIndex.isValid()){
         emit deleteKeyEvent(currentIndex);
    }
 
-   if(event->modifiers()&Qt::AltModifier){
-       if (event->key()==Qt::Key_Insert && currentIndex.isValid()){
-           Task *currentTask = static_cast<Task*>(currentIndex.internalPointer());
+   if (event->key()==Qt::Key_Insert){
+       if(event->modifiers() & Qt::AltModifier){
+          Task *currentTask = static_cast<Task*>(currentIndex.internalPointer());
            emit insertAltKeyEvent(currentIndex);
            setCurrentIndex(currentIndex.child(currentTask->childCount()-1,0));
        }
+       else {
+           Task *parentTask = static_cast<Task*>(parentIndex.internalPointer());
+           emit insertKeyEvent(currentIndex);
+           setCurrentIndex(parentIndex.child(currentIndex.row()+1,0));
+       }
+       //resizeColumnToContents(0);
+       //return;
    }
-
-   else QTreeView::keyPressEvent(event);
    resizeColumnToContents(0);
+   QTreeView::keyPressEvent(event);
 
 }
 

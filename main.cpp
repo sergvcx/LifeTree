@@ -22,11 +22,11 @@ void transverseNode(const QDomNode& Node, Task* parent){
             if (!domElement.isNull()){
                 if (domElement.tagName()=="task") {
                     QString name=domElement.attribute("name","");
-                    int time=0;
+                    double time=0;
                     int cost=0;
                     QString id="id-000";
                     if (domElement.hasAttribute("time")){
-                        time=domElement.attribute("time","").toFloat();
+                        time=domElement.attribute("time","").toDouble();
                     }
                     if (domElement.hasAttribute("id")){
                         id=domElement.attribute("id","");

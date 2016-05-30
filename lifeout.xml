@@ -20,19 +20,54 @@
    </task>
   </task>
   <task time="4" cost="0" name="музыкальность" id="music sence">
-   <task time="1" cost="222" name="Прочитать книгу" id=""/>
+   <task time="1" cost="0" name="Прочитать книгу" id=""/>
   </task>
  </task>
- <task time="0" cost="0" name="Работа" id="0"/>
- <task time="0.5" cost="0" name="Спорт" id="sport"/>
+ <task time="0" cost="0" name="Работа" id="0">
+  <task time="35" cost="0" name="NMPP" id="00">
+   <task time="1" cost="0" name="Настроить Jenkins" id="000">
+    <task time="4" cost="0" name="Разорбраться с Jemkins" id="0000"/>
+   </task>
+   <task time="0" cost="0" name="fft" id="00000">
+    <task time="8" cost="0" name="fft-256" id="000000"/>
+    <task time="8" cost="0" name="fft-512" id="0000000"/>
+    <task time="8" cost="0" name="fft-1024" id="00000000"/>
+    <task time="8" cost="0" name="fft-2048" id="000000000"/>
+    <task time="0" cost="0" name="fft-4096" id="0000000000"/>
+   </task>
+   <task time="0" cost="0" name="malloc32" id="00000000000"/>
+  </task>
+  <task time="0" cost="0" name="Шахматы" id="000000000000"/>
+  <task time="0" cost="0" name="Квадрокоптер" id="0000000000000"/>
+  <task time="8" cost="0" name="Sobel-steps" id="00000000000000"/>
+  <task time="2" cost="0" name="First-steps" id="000000000000000"/>
+  <task time="4" cost="0" name="Изучить Jenkins" id="0000000000000000"/>
+  <task time="4" cost="0" name="Изучить cppckeck" id="00000000000000000"/>
+  <task time="4" cost="0" name="Изучить clang" id="000000000000000000"/>
+ </task>
  <task time="0" cost="0" name="Встреча" id="meeting">
   <task time="2" cost="1000" name="Маша" id="masha"/>
-  <task time="2" cost="1000" name="Оля" id="00"/>
+  <task time="2" cost="1000" name="Оля" id="0000000000000000000"/>
  </task>
- <task time="0" cost="0" name="Машина" id="000">
-  <task time="0" cost="1" name="Кондиционер" id="0000"/>
-  <task time="0" cost="0" name="Обивка" id="00000"/>
-  <task time="0" cost="0" name="Доливка" id="000000"/>
-  <task time="0" cost="1" name="Фильтр" id="0000000"/>
+ <task time="0" cost="0" name="Машина" id="00000000000000000000">
+  <task time="0" cost="1" name="Кондиционер" id="000000000000000000000"/>
+  <task time="0" cost="0" name="Обивка" id="0000000000000000000000"/>
+  <task time="0" cost="0" name="Доливка" id="00000000000000000000000"/>
+  <task time="0.25" cost="0" name="Фильтр" id="000000000000000000000000"/>
+  <task time="0" cost="0" name="Отключить запуск" id="0000000000000000000000000"/>
+  <task time="0" cost="0" name="Помыть" id="00000000000000000000000000"/>
+  <task time="0" cost="0" name="Пылесос" id="000000000000000000000000000"/>
+  <task time="0" cost="4000" name="Оформить ОСАГО" id="0000000000000000000000000000"/>
  </task>
+ <task time="0" cost="0" name="Дом" id="00000000000000000000000000000">
+  <task time="0" cost="0" name="Сделать дизайн комнаты" id="000000000000000000000000000000">
+   <task time="0" cost="0" name="Изучить 3DMax" id="0000000000000000000000000000000"/>
+  </task>
+  <task time="0" cost="0" name="Купить шторы" id="00000000000000000000000000000000"/>
+  <task time="0" cost="0" name="Установить карниз" id="000000000000000000000000000000000"/>
+  <task time="0" cost="0" name="Уборка" id="0000000000000000000000000000000000"/>
+ </task>
+ <task time="3" cost="0" name="CD-обогрев" id="00000000000000000000000000000000000"/>
+ <task time="0" cost="0" name="Trading" id="000000000000000000000000000000000000"/>
+ <task time="0" cost="0" name="Мои проекты" id=""/>
 </task>
