@@ -41,7 +41,7 @@ void transverseNode(const QDomNode& Node, Task* parent){
                             i++;
                             id=QString::number(i);
                         }
-                        else
+                        else {
                             id="0";
                         }
                     }
