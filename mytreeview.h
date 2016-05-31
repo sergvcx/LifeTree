@@ -28,7 +28,9 @@ signals:
 
 public slots:
     void onCollapsed(const QModelIndex & index);
+    void onExpanded(const QModelIndex & index);
     void onTreeDoubleClicked(const QModelIndex & index);
+    void onTreeClicked(const QModelIndex & index);
     void keyPressEvent(QKeyEvent* event);
 
 };

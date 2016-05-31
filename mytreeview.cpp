@@ -5,13 +5,27 @@ void MyTreeView::onTreeDoubleClicked(const QModelIndex & index){
     if (!index.isValid()) {
         return;
     }
+    resizeColumnToContents(0);
     //parentOfDeletedIndex=&(index.parent());
 
     //emit deleteTaskEvent(index);
 }
 
+void MyTreeView::onTreeClicked(const QModelIndex & index){
+    if (!index.isValid()) {
+        return;
+    }
+    resizeColumnToContents(0);
+    //emit deleteTaskEvent(index);
+}
+
 void MyTreeView::onCollapsed(const QModelIndex & index){
 
+    //expand(index);
+}
+
+void MyTreeView::onExpanded(const QModelIndex & index){
+    resizeColumnToContents(0);
     //expand(index);
 }
 
@@ -34,22 +48,14 @@ void MyTreeView::getListExpanded(QModelIndex& index, QList<QModelIndex*>& listEx
         //getListExpanded(child,listExpanded);
     }
 }
-//void MyTreeView::expand(){
-    //foreach (QModelIndex* index)
 
-//}
-/*
-if (!view->expanded(index)) {
-        view->expand(index);
-    }
-
-
-
+void MyTreeView::saveState(void)
+{
     QStringList List;
-    this->expandeIndexes;
+
     // prepare list
     // PS: getPersistentIndexList() function is a simple `return this->persistentIndexList()` from TreeModel model class
-    foreach (QModelIndex index, model->>getPersistentIndexList())
+    foreach (QModelIndex index, model->getPersistentIndexList())
     {
         if (view->isExpanded(index))
         {
@@ -62,10 +68,8 @@ if (!view->expanded(index)) {
     settings.beginGroup("MainWindow");
     settings.setValue("ExpandedItems", QVariant::fromValue(List));
     settings.endGroup();
+}
 
-    //model->persistentIndexList();
-} */
-/*
 void MyTreeView::restoreState(void)
 {
     QStringList List;
@@ -87,7 +91,6 @@ void MyTreeView::restoreState(void)
         }
     }
 }
-*/
 void MyTreeView::keyPressEvent(QKeyEvent* event)
 {
    QModelIndex currentIndex=this->currentIndex();
@@ -112,8 +115,9 @@ void MyTreeView::keyPressEvent(QKeyEvent* event)
        }
        //resizeColumnToContents(0);
        //return;
+       resizeColumnToContents(0);
    }
-   resizeColumnToContents(0);
+
    QTreeView::keyPressEvent(event);
 
 }
