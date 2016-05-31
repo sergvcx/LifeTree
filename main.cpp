@@ -24,7 +24,7 @@ void transverseNode(const QDomNode& Node, Task* parent){
                     QString name=domElement.attribute("name","");
                     double time=0;
                     int cost=0;
-                    QString id="id-000";
+                    QString id="0";
                     if (domElement.hasAttribute("time")){
                         time=domElement.attribute("time","").toDouble();
                     }
@@ -35,7 +35,15 @@ void transverseNode(const QDomNode& Node, Task* parent){
                         cost=domElement.attribute("cost","").toInt();
                     }
                     while (mapTaskData.contains(id)){
-                        id=id+"0";
+                        bool ok;
+                        int i=id.toInt(&ok);
+                        if (ok){
+                            i++;
+                            id=QString::number(i);
+                        }
+                        else
+                            id="0";
+                        }
                     }
 
 
