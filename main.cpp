@@ -254,6 +254,8 @@ int main(int argc, char *argv[])
     QObject::connect(&treeView, SIGNAL(deleteKeyEvent(const QModelIndex &)), &model, SLOT(onDeleteKey(const QModelIndex &)));
     QObject::connect(&treeView, SIGNAL(insertKeyEvent(const QModelIndex &)), &model, SLOT(onInsertKey(const QModelIndex &)));
     QObject::connect(&treeView, SIGNAL(insertAltKeyEvent(const QModelIndex &)), &model, SLOT(onInsertAltKey(const QModelIndex &)));
+    QObject::connect(&treeView, SIGNAL(copyKeyEvent(const QModelIndex &)), &model, SLOT(onCopyKey(const QModelIndex &)));
+    QObject::connect(&treeView, SIGNAL(linkKeyEvent(const QModelIndex &)), &model, SLOT(onLinkKey(const QModelIndex &)));
     //QObject::connect(&treeView, SIGNAL(doubleClicked(const QModelIndex &)), &model, SLOT(onTreeDoubleClicked(const QModelIndex &)));
     QObject::connect(&treeView, SIGNAL(doubleClicked(const QModelIndex &)), &treeView, SLOT(onTreeDoubleClicked(const QModelIndex &)));
     QObject::connect(&treeView, SIGNAL(collapsed(const QModelIndex &)), &treeView, SLOT(onCollapsed(const QModelIndex &)));

@@ -48,16 +48,16 @@ void MyTreeView::getListExpanded(QModelIndex& index, QList<QModelIndex*>& listEx
         //getListExpanded(child,listExpanded);
     }
 }
-
+/*
 void MyTreeView::saveState(void)
 {
     QStringList List;
 
     // prepare list
     // PS: getPersistentIndexList() function is a simple `return this->persistentIndexList()` from TreeModel model class
-    foreach (QModelIndex index, model->getPersistentIndexList())
+    foreach (QModelIndex index, this->model->getPersistentIndexList())
     {
-        if (view->isExpanded(index))
+        if (isExpanded(index))
         {
             List << index.data(Qt::DisplayRole).toString();
         }
@@ -90,7 +90,7 @@ void MyTreeView::restoreState(void)
             view->setExpanded(Items.first(), true);
         }
     }
-}
+}*/
 void MyTreeView::keyPressEvent(QKeyEvent* event)
 {
    QModelIndex currentIndex=this->currentIndex();
@@ -100,6 +100,14 @@ void MyTreeView::keyPressEvent(QKeyEvent* event)
 
    if (event->key()==Qt::Key_Delete && parentIndex.isValid()){
         emit deleteKeyEvent(currentIndex);
+   }
+   if(event->modifiers() & Qt::ControlModifier){
+      if (event->key()==Qt::Key_C && parentIndex.isValid()){
+        emit copyKeyEvent(currentIndex);
+      }
+      if (event->key()==Qt::Key_L && parentIndex.isValid()){
+        emit linkKeyEvent(currentIndex);
+      }
    }
 
    if (event->key()==Qt::Key_Insert){

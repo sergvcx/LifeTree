@@ -25,6 +25,8 @@ signals:
     void deleteKeyEvent(const QModelIndex & index);
     void insertKeyEvent(const QModelIndex & index);
     void insertAltKeyEvent(const QModelIndex & index);
+    void copyKeyEvent(const QModelIndex & index);
+    void linkKeyEvent(const QModelIndex & index);
 
 public slots:
     void onCollapsed(const QModelIndex & index);

@@ -189,24 +189,35 @@ void TaskModel::onDeleteKey(const QModelIndex &index)
     Task *parentTask  = currentTask->parentTask; //static_cast<Task*>(parentIndex.internalPointer());
     int idx=parentTask->childTasks.indexOf(currentTask);
     Q_ASSERT(idx>=0);
-    //beginResetModel();
 
     beginRemoveRows(parentIndex, currentTask->row(), currentTask->row());
     delete currentTask;
     endRemoveRows();
-    //parentTask->childTasks.removeAt(idx);
-    //pModel->resetModel();
-    //endResetModel();
-    //pModel->reset();
-
-    //pModel->dataChanged(QModelIndex(),QModelIndex());
-
-
-
-    //setExpanded(parentIndex,false);
-    //setExpanded(parentIndex,true);
-    //setCurrentIndex(parentIndex);
 }
 
+void TaskModel::onCopyKey(const QModelIndex &index){
+    if (!index.isValid()) {
+        return;
+    }
+    exchIndex=index;
+}
+
+void TaskModel::onLinkKey(const QModelIndex &index){
+    if (!index.isValid()) {
+        return;
+    }
+    QModelIndex parentIndex=index.parent();
+    Task *currentTask = static_cast<Task*>(index.internalPointer());
+    Task *parentTask  = currentTask->parentTask; //static_cast<Task*>(parentIndex.internalPointer());
+    Task *originTask  = static_cast<Task*>(exchIndex.internalPointer());
+
+    //int idx=parentTask->childTasks.indexOf(currentTask);
+    //Q_ASSERT(idx>=0);
+    beginInsertRows(parentIndex, 0, parentTask->columnCount()+1);
+    parentTask->appendLinkedChildTask(originTask->pTaskData);
+    //parentTask->insertChildTask(*(exchTask->pTaskData),index.row()+1);
+    endInsertRows();
+
+}
 
 
