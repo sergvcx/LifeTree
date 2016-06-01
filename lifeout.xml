@@ -1,109 +1,138 @@
 <!DOCTYPE MyLife>
 <task name="life">
- <task time="0" cost="0" id="dancing" name="Танцы">
-  <task time="0" cost="0" id="hustle" name="Хастл"/>
-  <task time="0" cost="12" id="kizomba" name="Кизомба">
-   <task time="2" cost="2000" id="kizomba0" name="индив кизомба"/>
+ <task id="dancing" name="Танцы" time="0" cost="0">
+  <task id="hustle" name="Хастл" time="0" cost="0"/>
+  <task id="kizomba" name="Кизомба" time="0" cost="12">
+   <task id="kizomba0" name="индив кизомба" time="2" cost="2000"/>
   </task>
-  <task time="0" cost="0" id="zouk" name="Зук">
-   <task time="5" cost="0" id="zouk video" name="повторить видео"/>
+  <task id="zouk" name="Зук" time="0" cost="0">
+   <task id="zouk video" name="повторить видео" time="5" cost="0"/>
    <link with="kizomba"/>
-   <task time="8" cost="1600" id="zouk disco" name="зук вечеринки"/>
-   <task time="12" cost="4000" id="zouk class" name="занятия по зуку"/>
-   <task time="12" cost="9000" id="zouk masters" name="мастерклассы по зуку"/>
+   <task id="zouk disco" name="зук вечеринки" time="8" cost="1600"/>
+   <task id="zouk class" name="занятия по зуку" time="12" cost="4000"/>
+   <task id="zouk masters" name="мастерклассы по зуку" time="12" cost="9000"/>
+   <task id="" name="сдать экзамены" time="0" cost="0"/>
   </task>
-  <task time="0" cost="0" id="bachata" name="Бачата">
-   <task time="2" cost="2000" id="" name="индив bachata"/>
-   <task time="0" cost="0" id="0" name="видео от кати">
-    <task time="2" cost="0" id="1" name="виртуально"/>
-    <task time="1" cost="0" id="2" name="отработать"/>
+  <task id="bachata" name="Бачата" time="0" cost="0">
+   <task id="0" name="индив bachata" time="2" cost="2000"/>
+   <task id="1" name="видео от кати" time="0" cost="0">
+    <task id="2" name="виртуально" time="2" cost="0"/>
+    <task id="3" name="отработать" time="1" cost="0"/>
    </task>
   </task>
-  <task time="4" cost="0" id="music sence" name="музыкальность">
-   <task time="1" cost="0" id="3" name="Прочитать книгу про танец"/>
+  <task id="music sence" name="музыкальность" time="4" cost="0">
+   <task id="4" name="Прочитать книгу про танец" time="1" cost="0"/>
   </task>
  </task>
- <task time="0" cost="0" id="4" name="Работа">
-  <task time="35" cost="0" id="5" name="NMPP">
-   <task time="1" cost="0" id="6" name="Настроить Jenkins">
-    <task time="4" cost="0" id="7" name="Разорбраться с Jemkins"/>
+ <task id="5" name="Работа" time="0" cost="0">
+  <task id="6" name="NMPP" time="35" cost="0">
+   <task id="7" name="Настроить Jenkins" time="1" cost="0">
+    <task id="8" name="Разорбраться с Jemkins" time="4" cost="0"/>
    </task>
-   <task time="0" cost="0" id="8" name="fft">
-    <task time="8" cost="0" id="9" name="fft-256"/>
-    <task time="8" cost="0" id="10" name="fft-512"/>
-    <task time="8" cost="0" id="11" name="fft-1024"/>
-    <task time="8" cost="0" id="12" name="fft-2048"/>
-    <task time="0" cost="0" id="13" name="fft-4096"/>
+   <task id="9" name="fft" time="0" cost="0">
+    <task id="10" name="fft-256" time="8" cost="0"/>
+    <task id="11" name="fft-512" time="8" cost="0"/>
+    <task id="12" name="fft-1024" time="8" cost="0"/>
+    <task id="13" name="fft-2048" time="8" cost="0"/>
+    <task id="14" name="fft-4096" time="0" cost="0"/>
    </task>
-   <task time="0" cost="0" id="jpeg" name="jpeg"/>
-   <task time="0" cost="0" id="14" name="malloc32"/>
+   <task id="jpeg" name="jpeg" time="0" cost="0"/>
+   <task id="15" name="malloc32" time="0" cost="0"/>
   </task>
-  <task time="0" cost="0" id="Chess" name="Шахматы"/>
-  <task time="0" cost="0" id="Quadro" name="Квадрокоптер"/>
-  <task time="8" cost="0" id="17" name="Sobel-steps"/>
-  <task time="2" cost="0" id="18" name="First-steps"/>
-  <task time="4" cost="0" id="19" name="Изучить Jenkins"/>
-  <task time="4" cost="0" id="20" name="Изучить cppckeck"/>
-  <task time="4" cost="0" id="21" name="Изучить clang"/>
-  <task time="1" cost="0" id="15" name="Настроить Debian"/>
+  <task id="16" name="gnuwin32-lite" time="0" cost="0"/>
+  <task id="17" name="dev-pack" time="0" cost="0"/>
+  <task id="Chess" name="Шахматы" time="0" cost="0"/>
+  <task id="Quadro" name="Квадрокоптер" time="0" cost="0"/>
+  <task id="18" name="Sobel-steps" time="8" cost="0"/>
+  <task id="19" name="First-steps" time="2" cost="0"/>
+  <task id="20" name="Изучить Jenkins" time="4" cost="0"/>
+  <task id="21" name="Изучить cppckeck" time="4" cost="0"/>
+  <task id="22" name="Изучить clang" time="4" cost="0"/>
+  <task id="23" name="Настроить Debian" time="1" cost="0"/>
+  <task id="" name="Устросить конкурс" time="0" cost="0"/>
  </task>
- <task time="0" cost="0" id="16" name="Диссер"/>
- <task time="0" cost="0" id="meeting" name="Встреча">
-  <task time="2" cost="1000" id="masha" name="Маша"/>
-  <task time="2" cost="1000" id="22" name="Оля"/>
+ <task id="24" name="Диссер" time="0" cost="0"/>
+ <task id="meeting" name="Встреча" time="0" cost="0">
+  <task id="masha" name="Маша" time="2" cost="1000"/>
+  <task id="25" name="Оля" time="2" cost="1000"/>
  </task>
- <task time="0" cost="0" id="23" name="Машина">
-  <task time="0" cost="1" id="24" name="Кондиционер"/>
-  <task time="0" cost="0" id="25" name="Обивка"/>
-  <task time="0" cost="0" id="26" name="Доливка"/>
-  <task time="0.25" cost="0" id="27" name="Фильтр"/>
-  <task time="0" cost="0" id="28" name="Отключить запуск"/>
-  <task time="0" cost="0" id="29" name="Помыть"/>
-  <task time="0" cost="0" id="30" name="Пылесос"/>
-  <task time="0" cost="4000" id="31" name="Оформить ОСАГО"/>
+ <task id="26" name="Машина" time="0" cost="0">
+  <task id="27" name="Кондиционер" time="0" cost="1000"/>
+  <task id="28" name="Обивка" time="0" cost="0"/>
+  <task id="29" name="Доливка" time="0" cost="0"/>
+  <task id="30" name="Фильтр" time="0.25" cost="0"/>
+  <task id="31" name="Отключить запуск" time="0" cost="0"/>
+  <task id="32" name="Помыть" time="0" cost="0"/>
+  <task id="33" name="Пылесос" time="0" cost="0"/>
+  <task id="34" name="Оформить ОСАГО" time="0" cost="4000"/>
  </task>
- <task time="0" cost="0" id="32" name="Дом">
-  <task time="0" cost="0" id="33" name="Сделать дизайн комнаты">
-   <task time="0" cost="0" id="34" name="Изучить 3DMax"/>
+ <task id="35" name="Дом" time="0" cost="0">
+  <task id="36" name="Сделать дизайн комнаты" time="0" cost="0">
+   <task id="37" name="Изучить 3DMax" time="0" cost="0"/>
   </task>
-  <task time="0" cost="0" id="35" name="Купить шторы"/>
-  <task time="0" cost="0" id="" name="Сделать подоконник">
-   <task time="0.5" cost="1000" id="" name="Купить подоконник"/>
+  <task id="38" name="Купить шторы" time="0" cost="0"/>
+  <task id="39" name="Сделать подоконник" time="0" cost="0">
+   <task id="40" name="Купить подоконник" time="0.5" cost="1000"/>
   </task>
-  <task time="0" cost="0" id="36" name="Установить карниз"/>
-  <task time="0" cost="0" id="37" name="Уборка"/>
+  <task id="41" name="Установить карниз" time="0" cost="0"/>
+  <task id="42" name="Уборка" time="0" cost="0"/>
+  <task id="43" name="Купить монитор" time="0" cost="0"/>
+  <task id="44" name="Авито" time="0" cost="0">
+   <task id="45" name="Продать осц" time="0" cost="0"/>
+   <task id="46" name="отдать монитор" time="0" cost="0"/>
+   <task id="47" name="продать сетку" time="0" cost="0"/>
+   <task id="48" name="продать куртку" time="0" cost="0"/>
+   <task id="49" name="продать вафельницу" time="0" cost="0"/>
+  </task>
+  <task id="50" name="туалет" time="0" cost="0"/>
+  <task id="51" name="Лакировать пол в коридоре" time="0" cost="0"/>
  </task>
- <task time="3" cost="0" id="38" name="CD-обогрев"/>
- <task time="0" cost="0" id="39" name="Trading"/>
- <task time="0" cost="0" id="40" name="Мои проекты">
+ <task id="52" name="Trading" time="0" cost="0"/>
+ <task id="53" name="Мои проекты" time="0" cost="0">
   <link with="Chess"/>
   <link with="Quadro"/>
-  <task time="1e+02" cost="0" id="registrator" name="Registrator">
+  <task id="registrator" name="Registrator" time="1e+02" cost="0">
    <link with="jpeg"/>
   </task>
-  <task time="0" cost="0" id="" name="Stepper"/>
+  <task id="54" name="Stepper" time="0" cost="0"/>
+  <task id="55" name="LifeTree" time="0" cost="0">
+   <task id="56" name="Увеличить рамер окна" time="0.5" cost="0"/>
+   <task id="57" name="+ Диалог удаление линка" time="0.5" cost="0"/>
+   <task id="" name="Поле редактирования" time="1" cost="0"/>
+   <task id="58" name="Сделать пеермещение задач" time="0" cost="0"/>
+   <task id="59" name="Восставнить состояние дерева" time="0.5" cost="0"/>
+   <task id="60" name="Собрать мобильную версию" time="0" cost="0"/>
+   <task id="61" name="Сделать облачнео хранение" time="0" cost="0"/>
+   <task id="" name="Старт/Стоп" time="0" cost="0"/>
+  </task>
+  <task id="62" name="CD-обогрев" time="0" cost="0">
+   <task id="63" name="смонтировать" time="2" cost="0"/>
+   <task id="64" name="видео" time="1" cost="0"/>
+  </task>
  </task>
- <task time="0" cost="0" id="41" name="Здоровье">
-  <task time="0" cost="0" id="42" name="Зрение"/>
-  <task time="0" cost="0" id="43" name="Спина"/>
-  <task time="0" cost="0" id="44" name="Сосуды"/>
+ <task id="65" name="Здоровье" time="0" cost="0">
+  <task id="66" name="Зрение" time="0" cost="0"/>
+  <task id="67" name="Спина" time="0" cost="0"/>
+  <task id="68" name="Сосуды" time="0" cost="0"/>
  </task>
- <task time="0" cost="0" id="46" name="Посмотреть"/>
- <task time="0" cost="0" id="47" name="Прочитать">
-  <task time="0" cost="0" id="48" name="Парадокс капитала"/>
-  <task time="0" cost="0" id="49" name="Форс мажор"/>
+ <task id="69" name="Посмотреть" time="0" cost="0"/>
+ <task id="70" name="Прочитать" time="0" cost="0">
+  <task id="71" name="Парадокс капитала" time="0" cost="0"/>
+  <task id="72" name="Форс мажор" time="0" cost="0"/>
   <link with="3"/>
+  <task id="" name="Стругацкие" time="0" cost="0"/>
  </task>
- <task time="0" cost="0" id="" name="Голос"/>
- <task time="0" cost="0" id="" name="Игра на гитаре">
-  <task time="0" cost="0" id="" name="Подготовить плейлист"/>
+ <task id="74" name="Игра на гитаре" time="0" cost="0">
+  <task id="75" name="Подготовить плейлист" time="0" cost="0"/>
   <link with=""/>
+  <task id="" name="Голос" time="0" cost="0"/>
  </task>
- <task time="0" cost="0" id="" name="Знакомоства">
-  <task time="0" cost="0" id="" name="Online">
-   <task time="0" cost="0" id="" name="Сделать фотоссесию">
-    <task time="0" cost="0" id="" name="Набрать базу образов"/>
+ <task id="76" name="Знакомства" time="0" cost="0">
+  <task id="77" name="Online" time="0" cost="0">
+   <task id="78" name="Сделать фотоссесию" time="0" cost="0">
+    <task id="79" name="Набрать базу образов" time="0" cost="0"/>
    </task>
   </task>
  </task>
+ <task id="" name="Финансы" time="0" cost="0"/>
 </task>
