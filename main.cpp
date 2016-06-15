@@ -24,7 +24,7 @@ void transverseNode(const QDomNode& Node, Task* parent){
                     QString name=domElement.attribute("name","");
                     double time=0;
                     int cost=0;
-                    bool enabled=true;
+                    bool enabled=false;
                     QString id="0";
                     if (domElement.hasAttribute("time")){
                         time=domElement.attribute("time","").toDouble();
@@ -36,7 +36,7 @@ void transverseNode(const QDomNode& Node, Task* parent){
                         cost=domElement.attribute("cost","").toInt();
                     }
                     if (domElement.hasAttribute("enabled")){
-                        enabled=domElement.attribute("enabled","")=="yes";
+                        enabled=domElement.attribute("enabled","")=="1";
                     }
                     while (mapTaskData.contains(id)){
                         bool ok;
@@ -120,7 +120,7 @@ int appendTaskNode(QDomDocument& doc,  QDomElement& parentElement, Task* pTask){
         childElement.setAttributeNode(attrID);
 
         QDomAttr attrEnabled = doc.createAttribute("enabled");
-        if (pTask->checkSt)
+        if (pTask->checkSt==Qt::Checked)
             attrEnabled.setValue("1");
         else
             attrEnabled.setValue("0");
@@ -154,7 +154,7 @@ int appendTaskNode(QDomDocument& doc,  QDomElement& parentElement, Task* pTask){
         childElement.setAttributeNode(attrID);
 
         QDomAttr attrEnabled = doc.createAttribute("enabled");
-        if (pTask->checkSt=Qt::Checked)
+        if (pTask->checkSt==Qt::Checked)
             attrEnabled.setValue("1");
         else
             attrEnabled.setValue("0");
