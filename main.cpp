@@ -75,6 +75,13 @@ void transverseNode(const QDomNode& Node, Task* parent){
 
 
                     pChildTask = pChildTaskData->listTask.last();
+                    if (domElement.hasAttribute("enabled")){
+                        if (domElement.attribute("enabled","")=="1")
+                            pChildTask->checkSt=Qt::Checked;
+                        else
+                            pChildTask->checkSt=Qt::Unchecked;
+                    }
+
                     qDebug() << domElement.attribute("with","");
 
                 }
