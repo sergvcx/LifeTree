@@ -9,7 +9,7 @@
 #include <QMap>
 #include "taskmodel.h"
 #include "mytreeview.h"
-
+#include "qmenubar.h"
 
 QMap<QString,TaskData* > mapTaskData;
 // чтени XML - рекурсивный разбор XML узла
@@ -24,6 +24,7 @@ void transverseNode(const QDomNode& Node, Task* parent){
                     QString name=domElement.attribute("name","");
                     double time=0;
                     int cost=0;
+                    bool enabled=true;
                     QString id="0";
                     if (domElement.hasAttribute("time")){
                         time=domElement.attribute("time","").toDouble();
@@ -33,6 +34,9 @@ void transverseNode(const QDomNode& Node, Task* parent){
                     }
                     if (domElement.hasAttribute("cost")){
                         cost=domElement.attribute("cost","").toInt();
+                    }
+                    if (domElement.hasAttribute("enabled")){
+                        enabled=domElement.attribute("enabled","")=="yes";
                     }
                     while (mapTaskData.contains(id)){
                         bool ok;
@@ -54,6 +58,7 @@ void transverseNode(const QDomNode& Node, Task* parent){
                     childData.time=time;
                     childData.cost=cost;
                     childData.id  =id;
+                    childData.enabled=enabled;
                     TaskData* pChildTaskData=parent->appendChildTask(childData);
 
                     pChildTask = pChildTaskData->listTask.last();
@@ -114,6 +119,13 @@ int appendTaskNode(QDomDocument& doc,  QDomElement& parentElement, Task* pTask){
         attrID.setValue(pTask->pTaskData->id);
         childElement.setAttributeNode(attrID);
 
+        QDomAttr attrEnabled = doc.createAttribute("enabled");
+        if (pTask->checkSt)
+            attrEnabled.setValue("1");
+        else
+            attrEnabled.setValue("0");
+        childElement.setAttributeNode(attrEnabled);
+
         parentElement.appendChild(childElement);
 
         //for(int i=0; i<pTask->childCount();i++){
@@ -140,6 +152,13 @@ int appendTaskNode(QDomDocument& doc,  QDomElement& parentElement, Task* pTask){
         QDomAttr attrID = doc.createAttribute("id");
         attrID.setValue(pTask->pTaskData->id);
         childElement.setAttributeNode(attrID);
+
+        QDomAttr attrEnabled = doc.createAttribute("enabled");
+        if (pTask->checkSt=Qt::Checked)
+            attrEnabled.setValue("1");
+        else
+            attrEnabled.setValue("0");
+        childElement.setAttributeNode(attrEnabled);
 
         parentElement.appendChild(childElement);
 
@@ -185,7 +204,10 @@ int main(int argc, char *argv[])
     QApplication app(argc, argv);
     //MainWindow w;
     //a.resize(10,10);
-    QMenuBar mnuBar;
+/*
+ *
+ *
+ *         QMenuBar mnuBar;
         QMenu*   pmnu   = new QMenu("&Menu");
 
         pmnu->addAction("&About Qt",
@@ -215,7 +237,7 @@ int main(int argc, char *argv[])
 
         mnuBar.addMenu(pmnu);
         mnuBar.show();
-
+*/
     Task  root("root");
     Task  life("life");
     root.appendChildTask(*(life.pTaskData));
@@ -295,7 +317,7 @@ int main(int argc, char *argv[])
 
     treeView.show();
 
-    a.exec();
+    app.exec();
     life2xml(root.child(0),"../LifeTree/lifeout.xml");
     return 0;
 }

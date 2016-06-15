@@ -12,8 +12,10 @@ public:
         time=0;
         cost=0;
         visited=false;
+        enabled=true;
     }
     TaskData& operator= (TaskData& td){
+        enabled=td.enabled;
         name=td.name;
         time=td.time;
         cost=td.cost;
@@ -28,12 +30,14 @@ public:
         name=Name;
         time=Time;
         cost=Cost;
+        enabled=true;
         //id  =Id;
     }
 
     double time;
     int cost;
     bool visited;
+    bool enabled;
     QString name;
     QString description;
     QString id;
@@ -111,6 +115,10 @@ public:
         Task* pCloneChildTask;
         foreach(Task* pCloneCurrentTask, this->pTaskData->listTask) {
             pCloneChildTask = new Task;
+            if (taskData.enabled)
+                pCloneChildTask->checkSt=Qt::Checked;
+            else
+                pCloneChildTask->checkSt=Qt::Unchecked;
             pCloneChildTask->pTaskData=pCloneChildData;     // связываем с общей датой
             pCloneChildTask->parentTask=pCloneCurrentTask;
             pCloneChildTask->level=level+1;
