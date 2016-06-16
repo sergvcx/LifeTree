@@ -195,6 +195,33 @@ void TaskModel::onDeleteKey(const QModelIndex &index)
     endRemoveRows();
 }
 
+void TaskModel::onCtrlDeleteKey(const QModelIndex &index)
+{
+    if (!index.isValid()) {
+        return;
+    }
+    QModelIndex parentIndex=index.parent();
+    Task *currentTask = static_cast<Task*>(index.internalPointer());
+    Task *parentTask  = currentTask->parentTask; //static_cast<Task*>(parentIndex.internalPointer());
+    int idx=parentTask->childTasks.indexOf(currentTask);
+    Q_ASSERT(idx>=0);
+
+    beginRemoveRows(parentIndex, currentTask->row(), currentTask->row());
+
+    if (currentTask->pTaskData->listTask.count()==1)
+        delete currentTask;
+    else{
+        parentTask->childTasks.removeAt(idx); // удаляем из родителся
+        idx=currentTask->pTaskData->listTask.indexOf(currentTask);
+        currentTask->pTaskData->listTask.removeAt(idx); // удаляем из спсика владельцев taskData
+        currentTask->pTaskData=0;
+        currentTask->childTasks.clear();
+        delete currentTask;
+    }
+
+    endRemoveRows();
+}
+
 void TaskModel::onCopyKey(const QModelIndex &index){
     if (!index.isValid()) {
         return;

@@ -83,26 +83,38 @@ public:
         parentTask->childTasks.append(this);
     }
 */
+    bool isLink(){
+        return (pTaskData->listTask.count()==1);
+    }
+    void unlink(){
+        foreach(Task* task, childTasks ){
+            task->unlink();
+            task->pTaskData=0;
+        }
+    }
+
     ~Task(){
         while(!childTasks.isEmpty()){
             Task* childTask=childTasks.last();
             delete childTask;
             //childTasks.removeLast();
         }
-        // удаляем всех владельцов этой TaskData и удаляем из списка детей их родителей
-        while (pTaskData->listTask.count()){
-            Task* ownerTask=pTaskData->listTask.last();
-            if (ownerTask->parentTask){
-                int idx=ownerTask->parentTask->childTasks.indexOf(ownerTask);
-                Q_ASSERT(idx>=0);
-                Q_ASSERT(ownerTask->childTasks.count()==0);
-                ownerTask->parentTask->childTasks.removeAt(idx);
-            }
-            pTaskData->listTask.removeLast();
+        if (pTaskData){
+            // удаляем всех владельцов этой TaskData и удаляем из списка детей их родителей
+            while (pTaskData->listTask.count()){
+                Task* ownerTask=pTaskData->listTask.last();
+                if (ownerTask->parentTask){
+                    int idx=ownerTask->parentTask->childTasks.indexOf(ownerTask);
+                    Q_ASSERT(idx>=0);
+                    Q_ASSERT(ownerTask->childTasks.count()==0);
+                    ownerTask->parentTask->childTasks.removeAt(idx);
+                }
+                pTaskData->listTask.removeLast();
 
+            }
+            // удалем саму pDataData
+            delete pTaskData;
         }
-        // удалем саму pDataData
-        delete pTaskData;
     }
 
 

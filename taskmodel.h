@@ -27,6 +27,7 @@ public slots:
     void onInsertKey(const QModelIndex &index);
     void onInsertAltKey(const QModelIndex &index);
     void onDeleteKey(const QModelIndex &index);
+    void onCtrlDeleteKey(const QModelIndex &index);
     void onCopyKey(const QModelIndex &index);
     void onLinkKey(const QModelIndex &index);
 
