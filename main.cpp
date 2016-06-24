@@ -211,10 +211,7 @@ int main(int argc, char *argv[])
     QApplication app(argc, argv);
     //MainWindow w;
     //a.resize(10,10);
-/*
- *
- *
- *         QMenuBar mnuBar;
+        QMenuBar mnuBar;
         QMenu*   pmnu   = new QMenu("&Menu");
 
         pmnu->addAction("&About Qt",
@@ -229,7 +226,7 @@ int main(int argc, char *argv[])
         pCheckableAction->setCheckable(true);
         pCheckableAction->setChecked(true);
 
-        pmnu->addAction(QPixmap(img4_xpm), "&IconItem");
+        //pmnu->addAction(QPixmap(img4_xpm), "&IconItem");
 
         QMenu* pmnuSubMenu = new QMenu("&SubMenu", pmnu);
         pmnu->addMenu(pmnuSubMenu);
@@ -243,8 +240,8 @@ int main(int argc, char *argv[])
         pmnu->addAction("&Exit", &app, SLOT(quit()));
 
         mnuBar.addMenu(pmnu);
-        mnuBar.show();
-*/
+       // mnuBar.show();
+
     Task  root("root");
     Task  life("life");
     root.appendChildTask(*(life.pTaskData));
@@ -320,10 +317,18 @@ int main(int argc, char *argv[])
     QObject::connect(&treeView, SIGNAL(collapsed(const QModelIndex &)), &treeView, SLOT(onCollapsed(const QModelIndex &)));
     QObject::connect(&treeView, SIGNAL(expanded(const QModelIndex &)), &treeView, SLOT(onExpanded(const QModelIndex &)));
 
+    QWidget *centralWidget = new QWidget;
+    QGridLayout *layout = new QGridLayout();
 
-
-    treeView.show();
-
+    layout->addWidget(&mnuBar, 0, 0);
+    layout->addWidget(&treeView, 1, 0);
+    //layout->addWidget(&treeView, 0, 1);
+    centralWidget->setLayout(layout);
+    //setCentralWidget(centralWidget);
+    centralWidget->resize(1000,800);
+    centralWidget->show();
+    //treeView.show();
+    //mainGrid->show();
     app.exec();
     life2xml(root.child(0),"../LifeTree/lifeout.xml");
     return 0;
