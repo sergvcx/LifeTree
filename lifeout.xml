@@ -1,138 +1,139 @@
 <!DOCTYPE MyLife>
 <task name="life">
- <task name="Танцы" enabled="1" time="0" cost="0" id="dancing">
-  <task name="Хастл" enabled="1" time="0" cost="0" id="hustle"/>
-  <task name="Кизомба" enabled="1" time="0" cost="0" id=""/>
-  <task name="Зук" enabled="1" time="0" cost="0" id="zouk">
-   <task name="повторить видео" enabled="1" time="5" cost="0" id="zouk video"/>
-   <task name="зук вечеринки" enabled="0" time="8" cost="1600" id="zouk disco"/>
-   <task name="занятия по зуку" enabled="1" time="12" cost="4000" id="zouk class"/>
-   <task name="мастерклассы по зуку" enabled="1" time="12" cost="9000" id="zouk masters"/>
-   <task name="сдать экзамены" enabled="1" time="0" cost="0" id="0"/>
+ <task time="0" cost="0" name="Танцы" enabled="1" id="dancing">
+  <task time="0" cost="0" name="Хастл" enabled="1" id="hustle"/>
+  <task time="0" cost="0" name="Кизомба" enabled="1" id=""/>
+  <task time="0" cost="0" name="Зук" enabled="1" id="zouk">
+   <task time="5" cost="0" name="повторить видео" enabled="1" id="zouk video"/>
+   <task time="8" cost="1600" name="зук вечеринки" enabled="0" id="zouk disco"/>
+   <task time="12" cost="4000" name="занятия по зуку" enabled="1" id="zouk class"/>
+   <task time="12" cost="9000" name="мастерклассы по зуку" enabled="1" id="zouk masters"/>
+   <task time="0" cost="0" name="сдать экзамены" enabled="1" id="0"/>
   </task>
-  <task name="Бачата" enabled="1" time="0" cost="0" id="bachata">
-   <task name="индив bachata" enabled="1" time="2" cost="2000" id="1"/>
-   <task name="видео от кати" enabled="1" time="0" cost="0" id="2">
-    <task name="виртуально" enabled="1" time="2" cost="0" id="3"/>
-    <task name="отработать" enabled="1" time="1" cost="0" id="4"/>
+  <task time="0" cost="0" name="Бачата" enabled="1" id="bachata">
+   <task time="2" cost="2000" name="индив bachata" enabled="1" id="1"/>
+   <task time="0" cost="0" name="видео от кати" enabled="1" id="2">
+    <task time="2" cost="0" name="виртуально" enabled="1" id="3"/>
+    <task time="1" cost="0" name="отработать" enabled="1" id="4"/>
    </task>
   </task>
-  <task name="музыкальность" enabled="1" time="4" cost="0" id="music sence">
-   <task name="Прочитать книгу про танец" enabled="1" time="1" cost="0" id="5"/>
+  <task time="4" cost="0" name="музыкальность" enabled="1" id="music sence">
+   <task time="1" cost="0" name="Прочитать книгу про танец" enabled="1" id="5"/>
   </task>
  </task>
- <task name="Работа" enabled="1" time="0" cost="0" id="6">
-  <task name="NMPP" enabled="1" time="35" cost="0" id="7">
-   <task name="Настроить Jenkins" enabled="1" time="1" cost="0" id="8">
-    <task name="Разорбраться с Jemkins" enabled="1" time="4" cost="0" id="9"/>
+ <task time="0" cost="0" name="Работа" enabled="1" id="6">
+  <task time="35" cost="0" name="NMPP" enabled="1" id="7">
+   <task time="1" cost="0" name="Настроить Jenkins" enabled="1" id="8">
+    <task time="4" cost="0" name="Разорбраться с Jemkins" enabled="1" id="9"/>
    </task>
-   <task name="fft" enabled="1" time="0" cost="0" id="10">
-    <task name="fft-256" enabled="1" time="8" cost="0" id="11"/>
-    <task name="fft-512" enabled="1" time="8" cost="0" id="12"/>
-    <task name="fft-1024" enabled="1" time="8" cost="0" id="13"/>
-    <task name="fft-2048" enabled="1" time="8" cost="0" id="14"/>
-    <task name="fft-4096" enabled="1" time="0" cost="0" id="15"/>
+   <task time="0" cost="0" name="fft" enabled="1" id="10">
+    <task time="8" cost="0" name="fft-256" enabled="1" id="11"/>
+    <task time="8" cost="0" name="fft-512" enabled="1" id="12"/>
+    <task time="8" cost="0" name="fft-1024" enabled="1" id="13"/>
+    <task time="8" cost="0" name="fft-2048" enabled="1" id="14"/>
+    <task time="0" cost="0" name="fft-4096" enabled="1" id="15"/>
    </task>
-   <task name="jpeg" enabled="1" time="0" cost="0" id="jpeg"/>
-   <task name="malloc32" enabled="1" time="0" cost="0" id="16"/>
+   <task time="0" cost="0" name="jpeg" enabled="1" id="jpeg"/>
+   <task time="0" cost="0" name="malloc32" enabled="1" id="16"/>
   </task>
-  <task name="gnuwin32-lite" enabled="1" time="0" cost="0" id="17"/>
-  <task name="dev-pack" enabled="1" time="0" cost="0" id="18"/>
-  <task name="Шахматы" enabled="1" time="0" cost="0" id="Chess"/>
-  <task name="JPEG" enabled="1" time="0" cost="0" id="19"/>
-  <task name="Квадрокоптер" enabled="1" time="0" cost="0" id="Quadro"/>
-  <task name="Sobel-steps" enabled="1" time="8" cost="0" id="20"/>
-  <task name="First-steps" enabled="1" time="2" cost="0" id="21"/>
-  <task name="Изучить Jenkins" enabled="1" time="4" cost="0" id="22"/>
-  <task name="Изучить cppckeck" enabled="1" time="4" cost="0" id="23"/>
-  <task name="Изучить clang" enabled="1" time="4" cost="0" id="24"/>
-  <task name="Настроить Debian" enabled="1" time="1" cost="0" id="25"/>
-  <task name="Устросить конкурс" enabled="1" time="0" cost="0" id="26"/>
+  <task time="0" cost="0" name="gnuwin32-lite" enabled="1" id="17"/>
+  <task time="0" cost="0" name="dev-pack" enabled="1" id="18"/>
+  <task time="0" cost="0" name="Шахматы" enabled="1" id="Chess"/>
+  <task time="0" cost="0" name="JPEG" enabled="1" id="19"/>
+  <task time="0" cost="0" name="Квадрокоптер" enabled="1" id="Quadro"/>
+  <task time="8" cost="0" name="Sobel-steps" enabled="1" id="20"/>
+  <task time="2" cost="0" name="First-steps" enabled="1" id="21"/>
+  <task time="4" cost="0" name="Изучить Jenkins" enabled="1" id="22"/>
+  <task time="4" cost="0" name="Изучить cppckeck" enabled="1" id="23"/>
+  <task time="4" cost="0" name="Изучить clang" enabled="1" id="24"/>
+  <task time="1" cost="0" name="Настроить Debian" enabled="1" id="25"/>
+  <task time="0" cost="0" name="Устросить конкурс" enabled="1" id="26"/>
  </task>
- <task name="Диссер" enabled="1" time="0" cost="0" id="27"/>
- <task name="Встреча" enabled="1" time="0" cost="0" id="meeting">
-  <task name="Маша" enabled="1" time="2" cost="1000" id="masha"/>
-  <task name="Оля" enabled="1" time="2" cost="1000" id="28"/>
+ <task time="0" cost="0" name="Диссер" enabled="1" id="27"/>
+ <task time="0" cost="0" name="Встреча" enabled="1" id="meeting">
+  <task time="2" cost="1000" name="Маша" enabled="1" id="masha"/>
+  <task time="2" cost="1000" name="Оля" enabled="1" id="28"/>
  </task>
- <task name="Машина" enabled="1" time="0" cost="0" id="29">
-  <task name="Кондиционер" enabled="1" time="0" cost="1000" id="30"/>
-  <task name="Обивка" enabled="1" time="0" cost="0" id="31"/>
-  <task name="Доливка" enabled="0" time="0" cost="0" id="32"/>
-  <task name="Фильтр" enabled="1" time="0.25" cost="0" id="33"/>
-  <task name="Отключить запуск" enabled="1" time="0" cost="0" id="34"/>
-  <task name="Помыть" enabled="1" time="0" cost="0" id="35"/>
-  <task name="Починить магнитолу" enabled="0" time="1" cost="0" id="36"/>
-  <task name="Пылесос" enabled="1" time="0" cost="0" id="37"/>
-  <task name="Оформить ОСАГО" enabled="0" time="0" cost="4000" id="38"/>
-  <task name="починить замок" enabled="1" time="0" cost="0" id="39"/>
+ <task time="0" cost="0" name="Машина" enabled="1" id="29">
+  <task time="0" cost="1000" name="Кондиционер" enabled="0" id="30"/>
+  <task time="0" cost="0" name="Обивка" enabled="1" id="31"/>
+  <task time="0" cost="0" name="Доливка" enabled="0" id="32"/>
+  <task time="0.25" cost="0" name="Фильтр" enabled="0" id="33"/>
+  <task time="0" cost="0" name="Отключить запуск" enabled="1" id="34"/>
+  <task time="0" cost="0" name="Помыть" enabled="1" id="35"/>
+  <task time="1" cost="0" name="Починить магнитолу" enabled="0" id="36"/>
+  <task time="0" cost="0" name="Пылесос" enabled="1" id="37"/>
+  <task time="0" cost="4000" name="Оформить ОСАГО" enabled="0" id="38"/>
+  <task time="0" cost="0" name="починить замок" enabled="1" id="39"/>
  </task>
- <task name="Дом" enabled="1" time="0" cost="0" id="40">
-  <task name="Сделать дизайн комнаты" enabled="1" time="0" cost="0" id="41">
-   <task name="Изучить 3DMax" enabled="1" time="0" cost="0" id="42"/>
+ <task time="0" cost="0" name="Дом" enabled="1" id="40">
+  <task time="0" cost="0" name="Сделать дизайн комнаты" enabled="1" id="41">
+   <task time="0" cost="0" name="Изучить 3DMax" enabled="1" id="42"/>
   </task>
-  <task name="Купить шторы" enabled="1" time="0" cost="0" id="43"/>
-  <task name="Сделать подоконник" enabled="1" time="0" cost="0" id="44">
-   <task name="Купить подоконник" enabled="1" time="0.5" cost="1000" id="45"/>
+  <task time="0" cost="0" name="Купить шторы" enabled="1" id="43"/>
+  <task time="0" cost="0" name="Сделать подоконник" enabled="1" id="44">
+   <task time="0.5" cost="1000" name="Купить подоконник" enabled="1" id="45"/>
   </task>
-  <task name="Установить карниз" enabled="1" time="0" cost="0" id="46"/>
-  <task name="Уборка" enabled="1" time="0" cost="0" id="47"/>
-  <task name="Купить монитор" enabled="1" time="0" cost="0" id="48"/>
-  <task name="Авито" enabled="1" time="0" cost="0" id="49">
-   <task name="Продать осц" enabled="1" time="0" cost="0" id="50"/>
-   <task name="отдать монитор" enabled="1" time="0" cost="0" id="51"/>
-   <task name="продать сетку" enabled="1" time="0" cost="0" id="52"/>
-   <task name="продать куртку" enabled="1" time="0" cost="0" id="53"/>
-   <task name="продать вафельницу" enabled="1" time="0" cost="0" id="54"/>
+  <task time="0" cost="0" name="Установить карниз" enabled="1" id="46"/>
+  <task time="0" cost="0" name="Уборка" enabled="1" id="47"/>
+  <task time="0" cost="0" name="Купить монитор" enabled="1" id="48"/>
+  <task time="0" cost="0" name="Авито" enabled="1" id="49">
+   <task time="0" cost="0" name="Продать осц" enabled="1" id="50"/>
+   <task time="0" cost="0" name="отдать монитор" enabled="1" id="51"/>
+   <task time="0" cost="0" name="продать сетку" enabled="1" id="52"/>
+   <task time="0" cost="0" name="продать куртку" enabled="1" id="53"/>
+   <task time="0" cost="0" name="продать вафельницу" enabled="1" id="54"/>
   </task>
-  <task name="туалет" enabled="1" time="0" cost="0" id="55"/>
-  <task name="Лакировать пол в коридоре" enabled="1" time="0" cost="0" id="56"/>
+  <task time="0" cost="0" name="туалет" enabled="1" id="55"/>
+  <task time="0" cost="0" name="Лакировать пол в коридоре" enabled="1" id="56"/>
  </task>
- <task name="Мои проекты" enabled="1" time="0" cost="0" id="57">
-  <link enabled="1" with="Chess"/>
-  <link enabled="1" with="Quadro"/>
-  <task name="Registrator" enabled="1" time="1e+02" cost="0" id="registrator">
-   <link enabled="1" with="jpeg"/>
+ <task time="0" cost="0" name="Мои проекты" enabled="1" id="57">
+  <link with="Chess" enabled="1"/>
+  <link with="Quadro" enabled="1"/>
+  <task time="1e+02" cost="0" name="Registrator" enabled="1" id="registrator">
+   <link with="jpeg" enabled="1"/>
   </task>
-  <task name="Stepper" enabled="1" time="0" cost="0" id="58"/>
-  <task name="LifeTree" enabled="1" time="0" cost="0" id="59">
-   <task name="Увеличить рамер окна" enabled="1" time="0.5" cost="0" id="60"/>
-   <task name="+ Диалог удаление линка" enabled="1" time="0.5" cost="0" id="61"/>
-   <task name="Поле редактирования" enabled="1" time="1" cost="0" id="62"/>
-   <task name="Сделать пеермещение задач" enabled="1" time="0" cost="0" id="63"/>
-   <task name="Восставнить состояние дерева" enabled="1" time="0.5" cost="0" id="64"/>
-   <task name="Собрать мобильную версию" enabled="1" time="0" cost="0" id="65"/>
-   <task name="Сделать облачнео хранение" enabled="1" time="0" cost="0" id="66"/>
-   <task name="Старт/Стоп" enabled="1" time="0" cost="0" id="67"/>
+  <task time="0" cost="0" name="Stepper" enabled="1" id="58"/>
+  <task time="0" cost="0" name="LifeTree" enabled="1" id="59">
+   <task time="0.5" cost="0" name="Увеличить рамер окна" enabled="1" id="60"/>
+   <task time="0.5" cost="0" name="+ Диалог удаление линка" enabled="1" id="61"/>
+   <task time="1" cost="0" name="Поле редактирования" enabled="1" id="62"/>
+   <task time="0" cost="0" name="Сделать пеермещение задач" enabled="1" id="63"/>
+   <task time="0.5" cost="0" name="Восставнить состояние дерева" enabled="1" id="64"/>
+   <task time="0" cost="0" name="Собрать мобильную версию" enabled="1" id="65"/>
+   <task time="0" cost="0" name="Сделать облачнео хранение" enabled="1" id="66"/>
+   <task time="0" cost="0" name="Старт/Стоп" enabled="1" id="67"/>
   </task>
-  <task name="CD-обогрев" enabled="1" time="0" cost="0" id="68">
-   <task name="смонтировать" enabled="1" time="2" cost="0" id="69"/>
-   <task name="видео" enabled="1" time="1" cost="0" id="70"/>
+  <task time="0" cost="0" name="CD-обогрев" enabled="1" id="68">
+   <task time="2" cost="0" name="смонтировать" enabled="1" id="69"/>
+   <task time="1" cost="0" name="видео" enabled="1" id="70"/>
   </task>
-  <task name="Contacter" enabled="1" time="0" cost="0" id="71"/>
+  <task time="0" cost="0" name="Contacter" enabled="1" id="71"/>
  </task>
- <task name="Здоровье" enabled="1" time="0" cost="0" id="72">
-  <task name="Зрение" enabled="1" time="0" cost="0" id="73"/>
-  <task name="Спина" enabled="1" time="0" cost="0" id="74"/>
-  <task name="Сосуды" enabled="1" time="0" cost="0" id="75"/>
+ <task time="0" cost="0" name="Здоровье" enabled="1" id="72">
+  <task time="0" cost="0" name="Зрение" enabled="1" id="73"/>
+  <task time="0" cost="0" name="Спина" enabled="1" id="74"/>
+  <task time="0" cost="0" name="Сосуды" enabled="1" id="75"/>
+  <task time="0" cost="0" name="Зубы" enabled="1" id=""/>
  </task>
- <task name="Посмотреть" enabled="1" time="0" cost="0" id="76"/>
- <task name="Прочитать" enabled="1" time="0" cost="0" id="77">
-  <task name="Парадокс капитала" enabled="1" time="0" cost="0" id="78"/>
-  <task name="Форс мажор" enabled="1" time="0" cost="0" id="79"/>
-  <link enabled="1" with="3"/>
-  <task name="Стругацкие" enabled="1" time="0" cost="0" id="80"/>
+ <task time="0" cost="0" name="Посмотреть" enabled="1" id="76"/>
+ <task time="0" cost="0" name="Прочитать" enabled="1" id="77">
+  <task time="0" cost="0" name="Парадокс капитала" enabled="1" id="78"/>
+  <task time="0" cost="0" name="Форс мажор" enabled="1" id="79"/>
+  <link with="3" enabled="1"/>
+  <task time="0" cost="0" name="Стругацкие" enabled="1" id="80"/>
  </task>
- <task name="Игра на гитаре" enabled="1" time="0" cost="0" id="81">
-  <task name="Подготовить плейлист" enabled="1" time="0" cost="0" id="82"/>
-  <link enabled="1" with=""/>
-  <task name="Голос" enabled="1" time="0" cost="0" id="83"/>
+ <task time="0" cost="0" name="Игра на гитаре" enabled="1" id="81">
+  <task time="0" cost="0" name="Подготовить плейлист" enabled="1" id="82"/>
+  <link with="" enabled="1"/>
+  <task time="0" cost="0" name="Голос" enabled="1" id="83"/>
  </task>
- <task name="Знакомства" enabled="1" time="0" cost="0" id="84">
-  <task name="Online" enabled="1" time="0" cost="0" id="85">
-   <task name="Сделать фотоссесию" enabled="1" time="0" cost="0" id="86">
-    <task name="Набрать базу образов" enabled="1" time="0" cost="0" id="87"/>
+ <task time="0" cost="0" name="Знакомства" enabled="1" id="84">
+  <task time="0" cost="0" name="Online" enabled="1" id="85">
+   <task time="0" cost="0" name="Сделать фотоссесию" enabled="1" id="86">
+    <task time="0" cost="0" name="Набрать базу образов" enabled="1" id="87"/>
    </task>
   </task>
  </task>
- <task name="Финансы" enabled="1" time="0" cost="0" id="88"/>
+ <task time="0" cost="0" name="Финансы" enabled="1" id="88"/>
 </task>

@@ -212,9 +212,9 @@ int main(int argc, char *argv[])
     //MainWindow w;
     //a.resize(10,10);
         QMenuBar mnuBar;
-        QMenu*   pmnu   = new QMenu("&Menu");
+        QMenu*   pmnu   = new QMenu("&File");
 
-        pmnu->addAction("&About Qt",
+        pmnu->addAction("&About LifeTree",
                         &app,
                         SLOT(aboutQt()),
                         Qt::CTRL + Qt::Key_Q
@@ -321,11 +321,12 @@ int main(int argc, char *argv[])
     QGridLayout *layout = new QGridLayout();
 
     layout->addWidget(&mnuBar, 0, 0);
+    layout->setMargin(3);
     layout->addWidget(&treeView, 1, 0);
     //layout->addWidget(&treeView, 0, 1);
     centralWidget->setLayout(layout);
     //setCentralWidget(centralWidget);
-    centralWidget->resize(1000,800);
+    centralWidget->resize(1000,600);
     centralWidget->show();
     //treeView.show();
     //mainGrid->show();
