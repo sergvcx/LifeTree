@@ -22,6 +22,8 @@ public:
     int columnCount(const QModelIndex &parent = QModelIndex()) const ;
     bool setData(const QModelIndex &index, const QVariant &value, int role);
 
+    void save2xml();
+
 public slots:
     void onTreeClicked(const QModelIndex &index);
     void onInsertKey(const QModelIndex &index);

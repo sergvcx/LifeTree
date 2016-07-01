@@ -1,5 +1,9 @@
 #include "taskmodel.h"
 
+#include <qtXml/QDomDocument>
+#include <qtXml/QDomNode>
+#include <QFile>
+
 TaskModel::TaskModel(Task *HeadTask, QObject *parent):QAbstractItemModel(parent)
 {
     rootTask= HeadTask;
@@ -245,6 +249,95 @@ void TaskModel::onLinkKey(const QModelIndex &index){
     //parentTask->insertChildTask(*(exchTask->pTaskData),index.row()+1);
     endInsertRows();
 
+}
+
+
+int appendTaskNode(QDomDocument& doc,  QDomElement& parentElement, Task* pTask){
+    QDomElement childElement;
+
+    if (pTask->pTaskData->listTask.first()!=pTask){
+        childElement = doc.createElement("link");
+
+        QDomAttr attrID = doc.createAttribute("with");
+        attrID.setValue(pTask->pTaskData->id);
+        childElement.setAttributeNode(attrID);
+
+        QDomAttr attrEnabled = doc.createAttribute("enabled");
+        if (pTask->checkSt==Qt::Checked)
+            attrEnabled.setValue("1");
+        else
+            attrEnabled.setValue("0");
+        childElement.setAttributeNode(attrEnabled);
+
+        parentElement.appendChild(childElement);
+
+        //for(int i=0; i<pTask->childCount();i++){
+        //    Task* pChildTask=pTask->child(i);
+        //    if (!pChildTask->linked)
+        //        appendTaskNode(doc,childElement,pChildTask);
+        //}
+    }
+    else {
+        childElement = doc.createElement("task");
+
+        QDomAttr attrName = doc.createAttribute("name");
+        attrName.setValue(pTask->pTaskData->name);
+        childElement.setAttributeNode(attrName);
+
+        QDomAttr attrTime = doc.createAttribute("time");
+        attrTime.setValue(QString::number(pTask->pTaskData->time,'g',2));
+        childElement.setAttributeNode(attrTime);
+
+        QDomAttr attrCost = doc.createAttribute("cost");
+        attrCost.setValue(QString::number(pTask->pTaskData->cost));
+        childElement.setAttributeNode(attrCost);
+
+        QDomAttr attrID = doc.createAttribute("id");
+        attrID.setValue(pTask->pTaskData->id);
+        childElement.setAttributeNode(attrID);
+
+        QDomAttr attrEnabled = doc.createAttribute("enabled");
+        if (pTask->checkSt==Qt::Checked)
+            attrEnabled.setValue("1");
+        else
+            attrEnabled.setValue("0");
+        childElement.setAttributeNode(attrEnabled);
+
+        parentElement.appendChild(childElement);
+
+        for(int i=0; i<pTask->childCount();i++){
+            Task* pChildTask=pTask->child(i);
+            appendTaskNode(doc,childElement,pChildTask);
+        }
+    }
+
+}
+
+
+void TaskModel::save2xml(){
+    //QFile file(fileName);
+    //Task* pRootTask=;
+    QFile file("../LifeTree/lifeout.xml");
+
+    if (!file.open(QIODevice::WriteOnly | QIODevice::Text)) return -1;
+
+    QDomDocument doc("MyLife");
+    QDomElement root  = doc.createElement("task");
+    QDomAttr attrName = doc.createAttribute("name");
+    attrName.setValue(rootTask->pTaskData->name);
+    root.setAttributeNode(attrName);
+    doc.appendChild(root);
+
+    for(int i=0; i<rootTask->childCount();i++){
+        Task* pChildTask=pRootTask->child(i);
+        appendTaskNode(doc,root,pChildTask);
+    }
+
+    QString xml = doc.toString();
+    QTextStream out(&file);
+    out.setCodec("UTF-8");
+    out <<  xml;
+    file.close();
 }
 
 

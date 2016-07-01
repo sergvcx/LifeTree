@@ -114,68 +114,7 @@ tag.appendChild(t);
 
 
 }*/
-
-
-int appendTaskNode(QDomDocument& doc,  QDomElement& parentElement, Task* pTask){
-    QDomElement childElement;
-
-    if (pTask->pTaskData->listTask.first()!=pTask){
-        childElement = doc.createElement("link");
-
-        QDomAttr attrID = doc.createAttribute("with");
-        attrID.setValue(pTask->pTaskData->id);
-        childElement.setAttributeNode(attrID);
-
-        QDomAttr attrEnabled = doc.createAttribute("enabled");
-        if (pTask->checkSt==Qt::Checked)
-            attrEnabled.setValue("1");
-        else
-            attrEnabled.setValue("0");
-        childElement.setAttributeNode(attrEnabled);
-
-        parentElement.appendChild(childElement);
-
-        //for(int i=0; i<pTask->childCount();i++){
-        //    Task* pChildTask=pTask->child(i);
-        //    if (!pChildTask->linked)
-        //        appendTaskNode(doc,childElement,pChildTask);
-        //}
-    }
-    else {
-        childElement = doc.createElement("task");
-
-        QDomAttr attrName = doc.createAttribute("name");
-        attrName.setValue(pTask->pTaskData->name);
-        childElement.setAttributeNode(attrName);
-
-        QDomAttr attrTime = doc.createAttribute("time");
-        attrTime.setValue(QString::number(pTask->pTaskData->time,'g',2));
-        childElement.setAttributeNode(attrTime);
-
-        QDomAttr attrCost = doc.createAttribute("cost");
-        attrCost.setValue(QString::number(pTask->pTaskData->cost));
-        childElement.setAttributeNode(attrCost);
-
-        QDomAttr attrID = doc.createAttribute("id");
-        attrID.setValue(pTask->pTaskData->id);
-        childElement.setAttributeNode(attrID);
-
-        QDomAttr attrEnabled = doc.createAttribute("enabled");
-        if (pTask->checkSt==Qt::Checked)
-            attrEnabled.setValue("1");
-        else
-            attrEnabled.setValue("0");
-        childElement.setAttributeNode(attrEnabled);
-
-        parentElement.appendChild(childElement);
-
-        for(int i=0; i<pTask->childCount();i++){
-            Task* pChildTask=pTask->child(i);
-            appendTaskNode(doc,childElement,pChildTask);
-        }
-    }
-
-}
+/*
 int life2xml(Task* pRootTask,char* fileName){
     //QFile file(fileName);
     QFile file("../LifeTree/lifeout.xml");
@@ -200,7 +139,7 @@ int life2xml(Task* pRootTask,char* fileName){
     out <<  xml;
     file.close();
 }
-
+*/
 
 
 
@@ -237,6 +176,7 @@ int main(int argc, char *argv[])
 
         pmnu->addSeparator();
 
+        pmnu->addAction("&Save", &app, SLOT(quit()));
         pmnu->addAction("&Exit", &app, SLOT(quit()));
 
         mnuBar.addMenu(pmnu);
@@ -331,7 +271,8 @@ int main(int argc, char *argv[])
     //treeView.show();
     //mainGrid->show();
     app.exec();
-    life2xml(root.child(0),"../LifeTree/lifeout.xml");
+    model.save2xml();
+    //life2xml(root.child(0),"../LifeTree/lifeout.xml");
     return 0;
 }
 
