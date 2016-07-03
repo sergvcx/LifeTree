@@ -3,6 +3,7 @@
 #include <qtXml/QDomDocument>
 #include <qtXml/QDomNode>
 #include <QFile>
+#include <QtDebug>
 
 TaskModel::TaskModel(Task *HeadTask, QObject *parent):QAbstractItemModel(parent)
 {
@@ -316,19 +317,19 @@ int appendTaskNode(QDomDocument& doc,  QDomElement& parentElement, Task* pTask){
 
 void TaskModel::save2xml(){
     //QFile file(fileName);
-    //Task* pRootTask=;
+    Task* pRootTask=rootTask->child(0);
     QFile file("../LifeTree/lifeout.xml");
 
-    if (!file.open(QIODevice::WriteOnly | QIODevice::Text)) return -1;
+    if (!file.open(QIODevice::WriteOnly | QIODevice::Text));// return -1;
 
     QDomDocument doc("MyLife");
     QDomElement root  = doc.createElement("task");
     QDomAttr attrName = doc.createAttribute("name");
-    attrName.setValue(rootTask->pTaskData->name);
+    attrName.setValue(pRootTask->pTaskData->name);
     root.setAttributeNode(attrName);
     doc.appendChild(root);
 
-    for(int i=0; i<rootTask->childCount();i++){
+    for(int i=0; i<pRootTask->childCount();i++){
         Task* pChildTask=pRootTask->child(i);
         appendTaskNode(doc,root,pChildTask);
     }
