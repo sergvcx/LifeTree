@@ -16,11 +16,13 @@ SOURCES += main.cpp\
         mainwindow.cpp \
     taskmodel.cpp \
     task.cpp \
-    mytreeview.cpp
+    mytreeview.cpp \
+    menus.cpp
 
 HEADERS  += mainwindow.h \
     taskmodel.h \
     task.h \
-    mytreeview.h
+    mytreeview.h \
+    menus.h
 
 FORMS    += mainwindow.ui

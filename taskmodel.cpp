@@ -315,12 +315,100 @@ int appendTaskNode(QDomDocument& doc,  QDomElement& parentElement, Task* pTask){
 }
 
 
-void TaskModel::save2xml(){
+
+QMap<QString,TaskData* > mapTaskData;
+// чтени XML - рекурсивный разбор XML узла
+void transverseNode(const QDomNode& Node, Task* parent){
+    QDomNode domNode= Node.firstChild();
+    while(!domNode.isNull()){
+        Task* pChildTask=0;
+        if (domNode.isElement()){
+            QDomElement domElement=domNode.toElement();
+            if (!domElement.isNull()){
+                if (domElement.tagName()=="task") {
+                    QString name=domElement.attribute("name","");
+                    double time=0;
+                    int cost=0;
+                    bool enabled=false;
+                    QString id="0";
+                    if (domElement.hasAttribute("time")){
+                        time=domElement.attribute("time","").toDouble();
+                    }
+                    if (domElement.hasAttribute("id")){
+                        id=domElement.attribute("id","");
+                    }
+                    if (domElement.hasAttribute("cost")){
+                        cost=domElement.attribute("cost","").toInt();
+                    }
+                    if (domElement.hasAttribute("enabled")){
+                        enabled=domElement.attribute("enabled","")=="1";
+                    }
+                    while (mapTaskData.contains(id)){
+                        bool ok;
+                        int i=id.toInt(&ok);
+                        if (ok){
+                            i++;
+                            id=QString::number(i);
+                        }
+                        else {
+                            id="0";
+                        }
+                    }
+
+
+                    qDebug() << domElement.attribute("name","");    // открывающийся тэг
+                    //pChildTask=new Task(name,parent,time,cost);
+                    TaskData childData;
+                    childData.name=name;
+                    childData.time=time;
+                    childData.cost=cost;
+                    childData.id  =id;
+                    childData.enabled=enabled;
+                    TaskData* pChildTaskData=parent->appendChildTask(childData);
+
+                    pChildTask = pChildTaskData->listTask.last();
+                    mapTaskData[id]=pChildTaskData;
+                }
+                else {
+                    qDebug() << domElement.tagName() << "\tText" << domElement.text(); // закрывающийся тэг
+                }
+                if (domElement.tagName()=="link") {
+                    QString with =domElement.attribute("with","");
+                    //mapTaskData.contains(id)){
+                    TaskData* pChildTaskData= mapTaskData[with];
+                    parent->appendLinkedChildTask(pChildTaskData);
+
+
+                    pChildTask = pChildTaskData->listTask.last();
+                    if (domElement.hasAttribute("enabled")){
+                        if (domElement.attribute("enabled","")=="1")
+                            pChildTask->checkSt=Qt::Checked;
+                        else
+                            pChildTask->checkSt=Qt::Unchecked;
+                    }
+
+                    qDebug() << domElement.attribute("with","");
+
+                }
+                else {
+                    qDebug() << domElement.tagName() << "\tText" << domElement.text();
+                }
+            }
+        }
+        //pChildTask=0;
+        //parent->childTasks.last());
+        transverseNode(domNode, pChildTask);
+        domNode= domNode.nextSibling();
+    }
+}
+
+
+int TaskModel::saveXML(){
     //QFile file(fileName);
     Task* pRootTask=rootTask->child(0);
     QFile file("../LifeTree/lifeout.xml");
 
-    if (!file.open(QIODevice::WriteOnly | QIODevice::Text));// return -1;
+    if (!file.open(QIODevice::WriteOnly | QIODevice::Text)) return -1;
 
     QDomDocument doc("MyLife");
     QDomElement root  = doc.createElement("task");
@@ -339,6 +427,25 @@ void TaskModel::save2xml(){
     out.setCodec("UTF-8");
     out <<  xml;
     file.close();
+    return 0;
 }
 
+int TaskModel::loadXML(){
+    QDomDocument domDoc;
+    QFile file("../LifeTree/lifeout.xml");
+    if (file.open(QIODevice::ReadOnly | QIODevice::Text)){
+        if (domDoc.setContent(&file)){
+            QDomElement rootElement = domDoc.documentElement();
+            QString name=rootElement.attribute("name","");
+            int time=0; //docElement.attribute("time","").toInt();
+            int cost=0; //docElement.attribute("cost","").toInt();
+            qDebug() << rootElement.attribute("name","");
+
+
+            //transverseNode(rootElement,root.childTasks.first());
+            transverseNode(rootElement,rootTask->childTasks.first());
+        }
+        file.close();
+    }
+}
 
