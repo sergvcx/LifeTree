@@ -23,6 +23,7 @@ public:
     bool setData(const QModelIndex &index, const QVariant &value, int role);
 
     int loadXML();
+    bool goodXML;
 
 public slots:
     int saveXML();

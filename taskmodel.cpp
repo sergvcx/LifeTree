@@ -4,6 +4,7 @@
 #include <qtXml/QDomNode>
 #include <QFile>
 #include <QtDebug>
+#include <QMessageBox>
 
 TaskModel::TaskModel(Task *HeadTask, QObject *parent):QAbstractItemModel(parent)
 {
@@ -407,10 +408,18 @@ int TaskModel::saveXML(){
     //QFile file(fileName);
     Task* pRootTask=rootTask->child(0);
     QFile file("../LifeTree/lifeout.xml");
+    if (!goodXML){
+        QMessageBox messageBox;
+        messageBox.critical(0,"Warning","XML save skipped:"+file.fileName());
+        return -1;
+    }
+    if (!file.open(QIODevice::WriteOnly | QIODevice::Text)) {
+        QMessageBox messageBox;
+        messageBox.critical(0,"Error saving XML",file.fileName());
+        return -1;
+    }
 
-    if (!file.open(QIODevice::WriteOnly | QIODevice::Text)) return -1;
-
-    QDomDocument doc("MyLife");
+    QDomDocument doc;//("MyLife");
     QDomElement root  = doc.createElement("task");
     QDomAttr attrName = doc.createAttribute("name");
     attrName.setValue(pRootTask->pTaskData->name);
@@ -425,6 +434,8 @@ int TaskModel::saveXML(){
     QString xml = doc.toString();
     QTextStream out(&file);
     out.setCodec("UTF-8");
+    out << "<?xml version='1.0' ?>\n";
+    out << "<?xml-stylesheet type='text/xsl' href='lifeout.xsl'?>\n";
     out <<  xml;
     file.close();
     return 0;
@@ -433,8 +444,11 @@ int TaskModel::saveXML(){
 int TaskModel::loadXML(){
     QDomDocument domDoc;
     QFile file("../LifeTree/lifeout.xml");
+    QString errorMsg;
+    int errorLine;
+    int errorColumn;
     if (file.open(QIODevice::ReadOnly | QIODevice::Text)){
-        if (domDoc.setContent(&file)){
+        if (domDoc.setContent(&file,&errorMsg,&errorLine,&errorColumn)){
             QDomElement rootElement = domDoc.documentElement();
             QString name=rootElement.attribute("name","");
             int time=0; //docElement.attribute("time","").toInt();
@@ -444,8 +458,23 @@ int TaskModel::loadXML(){
 
             //transverseNode(rootElement,root.childTasks.first());
             transverseNode(rootElement,rootTask->childTasks.first());
+            goodXML=true;
+        }
+        else {
+            QMessageBox messageBox;
+            messageBox.critical(0,"Error in XML",errorMsg+"\n Line:"+QString::number(errorLine)+"\n Column:"+QString::number(errorColumn));
+            file.close();
+            goodXML=false;
+            return false;
         }
         file.close();
+        return true;
+    }
+    else {
+        QMessageBox messageBox;
+        messageBox.critical(0,"Error open XML",file.fileName());
+        goodXML=false;
+        return false;
     }
 }
 
