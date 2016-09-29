@@ -12,7 +12,7 @@
 		list-style-type: disc;
 		margin-top:0 em;
 		margin-bottom: 0 em;
-		margin-left: 0;
+		margin-left: 1 em;
 		margin-right: 0;
 		padding-left: 10px;
 	}
@@ -29,14 +29,12 @@
 </xsl:template>
 
 <xsl:template match="task">
-   <ul>
    <li>
       <xsl:value-of select="@name" />, 
       <ul>
 	  <xsl:apply-templates select="task"/>
 	  </ul>
    </li>
-   </ul>
 </xsl:template>
 
 
