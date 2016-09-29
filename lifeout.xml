@@ -1,7 +1,7 @@
 <!DOCTYPE MyLife>
 <?xml version='1.0' ?>
-<?xml-stylesheet type='text/xsl' href='lif.xsl'?>
-<taskk name="life" time="0" cost="0">
+<?xml-stylesheet type='text/xsl' href='lifeout.xsl'?>
+<task name="life" time="0" cost="0">
  <task time="0" cost="0" id="dancing" name="Танцы" enabled="1">
   <task time="0" cost="0" id="hustle" name="Хастл" enabled="1"/>
   <task time="0" cost="0" id="zouk" name="Зук" enabled="1">
@@ -251,4 +251,4 @@
    <task time="0" cost="0" id="183" name="Humorial" enabled="1"/>
   </task>
  </task>
-</taskk>
+</task>

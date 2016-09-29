@@ -1,13 +1,46 @@
-<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
-<xsl:output method="html"/>
+<?xml version='1.0'?>
+<xsl:stylesheet version="1.0"
+      xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+
+
+
+
 <xsl:template match="/task">
-<select>
-<xsl:for-each select=".//task">
-        <option name="optname" value="{@id}">
-<xsl:for-each select="ancestor::task"><xsl:text> </xsl:text></xsl:for-each> <!-- or   if you needed simple space -->
-<xsl:value-of select="@name"/>
-        </option>
-</xsl:for-each>
-</select>
+<style type="text/css">
+	ul { 
+		display: block;
+		list-style-type: disc;
+		margin-top:0 em;
+		margin-bottom: 0 em;
+		margin-left: 0;
+		margin-right: 0;
+		padding-left: 10px;
+	}
+	</style>
+
+   <ul>
+   <li>
+      <xsl:value-of select="@name" />, 
+      <ul>
+	  <xsl:apply-templates select="task"/>
+	  </ul>
+   </li>
+   </ul>
 </xsl:template>
+
+<xsl:template match="task">
+   <ul>
+   <li>
+      <xsl:value-of select="@name" />, 
+      <ul>
+	  <xsl:apply-templates select="task"/>
+	  </ul>
+   </li>
+   </ul>
+</xsl:template>
+
+
+
+
+
 </xsl:stylesheet>
